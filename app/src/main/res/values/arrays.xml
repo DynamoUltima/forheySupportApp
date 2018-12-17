@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="inv_options">
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="list_of_garments" >
+        <item>
+            Shirt
+        </item>
+        <item>
+            T-Shirt
+        </item>
+        <item>
+            Polo Shirt
+        </item>
+        <item>
+            Suit (2PCs)
+        </item>
+        <item>
+            Jacket
+        </item>
+        <item>Trouser</item>
+        <item>Khaki Trouser</item>
+        <item>Blouse</item>
+        <item>Camisole</item>
+        <item>Blazer</item>
+        <item>Dress (Short)</item>
+        <item>Dress (Long)</item>
+        <item>Winter Jacket</item>
+        <item>Dinner Wear</item>
+        <item>Kaba &amp; Slit</item>
+        <item>Caftan (2PCs)</item>
+        <item>Caftan (3PCs)</item>
+        <item>Caftan Top</item>
+        <item>Singlet</item>
+        <item>Boxer Short</item>
+        <item>Skirt</item>
+        <item>Pull Over</item>
+        <item>Sweater</item>
+        <item>Smock (2PCs)</item>
+        <item>Smock (3PCs)</item>
+        <item>Smock</item>
+        <item>Political Suit</item>
+        <item>Ties</item>
+        <item>Overcoat</item>
+        <item>Tracksuit</item>
+        <item>Tracksuit Botton</item>
+        <item>Short</item>
+        <item>Bed Sheet</item>
+        <item>Bed Spread</item>
+        <item>Duvet</item>
+        <item>Towel</item>
+        <item>Table Cloth</item>
+        <item>Curtain</item>
+        <item>Cushion Cover</item>
+        <item>Child T-Shirt</item>
+        <item>Child Dress</item>
+        <item>Child Shorts</item>
+        <item>Child Trousers</item>
+        <item>Child Suits</item>
+        <item>Wedding Gown</item>
+        <item>Bath Robe</item>
+        <item>Pillowcase</item>
+        </string-array>
+</resources>

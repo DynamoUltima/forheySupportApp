@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:layout_weight="2"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/cast_expanded_controller_background_color"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:layout_weight="1"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/grey700"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvServerCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SDF56879"
+            android:layout_weight="2"
+            android:textColor="@color/cardview_dark_background"
+            style="@style/TextAppearance.AppCompat.Subhead"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

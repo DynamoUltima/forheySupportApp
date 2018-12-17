@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/llLayout"
+    android:visibility="gone">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="0px"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/etCrName"
+                    android:hint="Name"
+                    android:textColor="#ff070707"
+                    android:textSize="16sp"
+                    android:textColorHint="#ff7c7c7c"
+                    android:paddingLeft="13dp"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:id="@+id/etCrPhone"
+                    android:focusable="false"
+                    android:hint="Phone #"
+                    android:textColor="#ff070707"
+                    android:textSize="16sp"
+                    android:textColorHint="#ff7c7c7c"
+                    android:padding="13dp"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
+                    android:id="@+id/etCrEmail"
+                    android:hint="Email"
+                    android:textColor="#ff070707"
+                    android:textSize="16sp"
+                    android:textColorHint="#ff7c7c7c"
+                    android:padding="13dp"
+                    android:focusable="false"/>
+                </android.support.design.widget.TextInputLayout>
+               <!-- <EditText
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_laundryFac"
+                    android:hint="Preferred Facility (leave blank if undecided)"
+                    android:textColor="#ff070707"
+                    android:textSize="16sp"
+                    android:textColorHint="#ff7c7c7c"
+                    android:padding="13dp"
+                    android:focusable="false"
+                    android:drawableLeft="@drawable/ic_laundry_fac"
+                    android:visibility="gone"/>-->
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:id="@+id/etCrOther"
+                    android:hint="Type Location"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:paddingLeft="18dp"
+                    android:visibility="gone"
+                    android:textColorHint="#fff"
+                    android:background="@color/otherLocation"/>
+                </android.support.design.widget.TextInputLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Address: "
+                        android:textSize="16dp"
+                        android:fontFamily="sans-serif"
+
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:typeface="sans"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Home"
+                        android:id="@+id/textView8"
+                        android:textSize="16dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#f02f2f2f"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:typeface="monospace" />
+
+                    <com.rey.material.widget.Switch
+                        style="@style/Material.Widget.Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:checked="false"
+                        android:textOff="Home"
+                        android:textOn="Office"
+                        android:id="@+id/swAddress"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginLeft="10dp"
+                        app:rbd_strokeColor="@color/c_purple_heart"
+                        android:textSize="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Office"
+                        android:id="@+id/textView9"
+                        android:textColor="#f02f2f2f"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif"
+                        android:textSize="16dp"
+                        android:layout_marginTop="10dp"
+                        android:typeface="monospace" />
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_marginLeft="70dp"-->
+                        <!-->-->
+                        <!--<Spinner-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/spnPickup"-->
+                            <!--android:spinnerMode="dropdown"-->
+                            <!--android:visibility="visible"-->
+                            <!--android:background="@android:drawable/dialog_holo_light_frame" />-->
+
+
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--</LinearLayout>-->
+
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etCrloc"
+                    android:hint="Location"
+                    android:textColor="#ff070707"
+                    android:textSize="16sp"
+                    android:textColorHint="#ff7c7c7c"
+                    android:padding="13dp"
+                    android:focusable="false"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etCompanyName"
+                    android:layout_marginTop="5dp"
+                    android:hint="Company Name"
+                    android:visibility="gone"
+                    android:textColor="#ff070707"
+                    android:textColorHint="#ff7c7c7c"
+                    android:textSize="16sp"
+                    android:paddingLeft="18dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/etCrhouseNum"
+                    android:layout_marginTop="10dp"
+                    android:hint="House #"
+                    android:textColor="#ff070707"
+                    android:textColorHint="#ff7c7c7c"
+                    android:textSize="15sp"
+                    android:focusable="false"
+                    android:paddingLeft="13dp"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etCrStName"
+                    android:layout_marginTop="5dp"
+                    android:hint="Street Name"
+                    android:textColor="#ff070707"
+                    android:textColorHint="#ff7c7c7c"
+                    android:textSize="16sp"
+                    android:paddingLeft="13dp"
+                    android:focusable="false"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:inputType="textShortMessage|textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/etCrRef"
+                    android:maxHeight="80dp"
+                    android:paddingLeft="13dp"
+                    android:textColor="#ff070707"
+                    android:textColorHint="#ff7c7c7c"
+                    android:textSize="15sp"
+                    android:hint="Point of Reference"
+                    android:focusable="false"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <Button
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="View Location on map"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="7dp"
+                    android:id="@+id/btnMap"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/promo_btn_purple"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+</LinearLayout>

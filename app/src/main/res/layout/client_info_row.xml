@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvName"
+        android:textSize="17sp"
+        android:layout_margin="5sp"
+        android:layout_weight="2"
+        android:text="Nayram Mensah"/>
+
+    <TextView
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvPhone"
+        android:textSize="14sp"
+        android:layout_marginLeft="1sp"
+        android:layout_weight="1"
+        android:layout_marginTop="5sp"
+        android:text="0277073834"/>
+
+    <TextView
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14sp"
+        android:id="@+id/tvLocation"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
+        android:layout_weight="2"
+        android:text="Accra ghan"/>
+</LinearLayout>

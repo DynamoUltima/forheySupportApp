@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.2"
+                android:background="@color/red500"
+                android:id="@+id/llStatus">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:id="@+id/tvOrderId"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:id="@+id/tvOrderType"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/purple500" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:id="@+id/tvLocation"
+                        android:layout_below="@+id/tvOrderId"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pickup Date"
+                        android:id="@+id/tvPickup"
+                        android:layout_below="@+id/tvLocation"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Del Date"
+                        android:id="@+id/tvDelivery"
+                        android:layout_below="@+id/tvPickup"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:visibility="gone"
+                        />
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="New Text"-->
+                    <!--android:id="@+id/tvPickupDate"-->
+                    <!--android:layout_below="@+id/tvLocation"-->
+                    <!--android:layout_toRightOf="@+id/tvLocation"-->
+                    <!--android:layout_toEndOf="@+id/tvLocation"-->
+                    <!--android:layout_marginLeft="46dp"-->
+                    <!--android:layout_marginStart="46dp"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:textColor="@color/black"/>-->
+
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="New Text"-->
+                    <!--android:id="@+id/tvDeliveryDate"-->
+                    <!--android:layout_below="@+id/tvPickupDate"-->
+                    <!--android:layout_alignLeft="@+id/tvPickupDate"-->
+                    <!--android:layout_alignStart="@+id/tvPickupDate"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:textColor="@color/black"/>-->
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

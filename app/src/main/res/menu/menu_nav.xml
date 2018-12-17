@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/mn_orders"
+            android:icon="@drawable/order"
+            android:title="Orders"/>
+
+        <item
+            android:id="@+id/mn__schedule"
+            android:icon="@drawable/ic_schedule_black_24dp"
+            android:title="Schedule" />
+
+        <item
+            android:id="@+id/mn_checkin"
+            android:icon="@drawable/ic_work_black_24dp"
+            android:title="Check In"/>
+
+        <item
+            android:id="@+id/mn_account"
+            android:icon="@drawable/ic_account_balance_wallet_black_24dp"
+            android:title="Account" />
+        <item android:id="@+id/mn_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Log Out"/>
+
+       <!-- <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_white_24dp"
+            android:title="Settings" />-->
+
+
+
+    </group>
+
+</menu>

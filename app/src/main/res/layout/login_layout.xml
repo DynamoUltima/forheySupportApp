@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+           <!-- <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_logo"
+                android:layout_marginTop="100dp"/>-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/etLogEmail"
+                android:layout_gravity="center_horizontal"
+                android:hint="Email address"
+                android:textColor="#000"
+                android:textColorHint="@color/gray"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etLogPassword"
+                android:layout_gravity="center_horizontal"
+                android:hint="Password"
+                android:textColor="#000"
+                android:textColorHint="@color/gray"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                />
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:text="Sign In"
+                android:layout_marginTop="20dp"
+                android:id="@+id/btnSignIn"
+                android:background="@drawable/forhey_action_color"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account?"
+                android:textColor="@color/gray"
+                android:textSize="17dp"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="register"
+                android:background="@drawable/register_btn"
+                android:textColor="#fff"
+                android:id="@+id/btnSignInReg"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

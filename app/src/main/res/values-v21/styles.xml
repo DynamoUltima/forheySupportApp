@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomActionBarTheme"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+
+        <!-- colorAccent is used as the default value for colorControlActivated
+        which is used to tint widgets -->
+        <!-- <item name="colorAccent">@color/colorAccent</item>-->
+        <!-- Support library compatibility -->
+        <!-- <item name="actionBarStyle">@style/MyActionBar</item>-->
+
+
+
+
+    </style>
+    <style name="MyTheme" parent="Theme.AppCompat">
+        ...
+    </style>
+
+    <style name="MyTheme.NoActionBar">
+        <!-- Both of these are needed -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar"
+        parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/purple500</item>
+
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/purple500</item>
+    </style>
+
+</resources>

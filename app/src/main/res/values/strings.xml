@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Forhey Support</string>
+    <string name="app_logout">Logout</string>
+    <string name="app_payment">Payment</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="dummy_section_text">Section %1d is just a dummy section.</string>
+    <string name="text_header">Text</string>
+    <string name="assigned_fac">Assigned Facilities</string>
+    <string name="assigned_pers">Assigned Personnel</string>
+    <string name="wash_fold"><![CDATA[WASH & FOLD :]]></string>
+
+    <string-array name="amount_type">
+        <item>GHC</item>
+        <item>PERC %</item>
+    </string-array>
+</resources>

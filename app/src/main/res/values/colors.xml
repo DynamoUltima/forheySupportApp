@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="washnFold">#ca81da</color>
+    <color name="laundry">#28a3d7</color>
+    <color name="dry_clean">#9ad335</color>
+    <color name="press_only">#607d8b</color>
+</resources>

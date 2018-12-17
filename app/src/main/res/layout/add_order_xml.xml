@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:inputType="textPersonName"
+            android:hint="Name"
+            android:ems="10"
+            android:id="@+id/etName"
+            android:background="@drawable/textfield_drawable"
+            android:padding="5sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:background="@drawable/textfield_drawable"
+            android:inputType="phone"
+            android:layout_marginTop="10dp"
+            android:hint="Phone number"
+            android:padding="5dp"
+            android:id="@+id/etPhone"
+            android:editable="false"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:inputType="textPostalAddress"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:id="@+id/etLocation"
+            android:background="@drawable/textfield_drawable"
+            android:hint="Location"
+            android:padding="5sp"
+            android:editable="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Pickup"
+            android:id="@+id/textView4"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/etPickup_date"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@drawable/ic_action_calendar"
+            android:background="@drawable/textfield_drawable"
+            android:padding="5sp"
+            android:focusable="false"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:id="@+id/etPickup_time"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textfield_drawable"
+            android:layout_marginTop="10dp"
+            android:padding="5sp"
+            android:drawableLeft="@drawable/ic_action_clock"
+            android:focusable="false"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Delivery"
+            android:id="@+id/textView5"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:id="@+id/etDelivery_date"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textfield_drawable"
+            android:layout_marginTop="10dp"
+            android:padding="5sp"
+            android:drawableLeft="@drawable/ic_action_calendar"
+            android:focusable="false"
+            android:visibility="gone"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/etDelivery_time"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textfield_drawable"
+            android:layout_marginTop="10dp"
+            android:padding="5sp"
+            android:drawableLeft="@drawable/ic_action_clock"
+            android:focusable="false"
+            android:visibility="gone"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/etNote"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textfield_drawable"
+            android:layout_marginTop="10dp"
+            android:hint="Note"
+            android:padding="5sp"/>
+
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="left|center"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Pickup Point"
+                android:id="@+id/textView10"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOME"
+                android:id="@+id/rbHome"
+                android:checked="true"
+                android:textSize="13sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFFICE"
+                android:id="@+id/rbOffice"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:textSize="13sp"/>
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place Order"
+            android:id="@+id/btnPlaceOrder"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:textColor="#fff"
+            android:background="@drawable/forhey_action_color"/>
+    </LinearLayout>
+
+
+
+
+</ScrollView>
