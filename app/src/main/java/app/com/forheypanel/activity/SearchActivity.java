@@ -68,6 +68,8 @@ import retrofit2.Response;
  */
 public class SearchActivity extends AppCompatActivity {
 
+    SharedPreferences sp;
+
 //    @Bind(R.id.invoice_transfer)
 //    Button invoiceButton;
 
@@ -119,6 +121,7 @@ public class SearchActivity extends AppCompatActivity {
     ConnectionDetector connectionDetector;
     String orderId,orderState="0",medium;
     RatingBar ratingBar;
+    Button invoiceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +162,9 @@ public class SearchActivity extends AppCompatActivity {
         paymentDialog=new MaterialDialog(this);
         orderBillDialog=new MaterialDialog(this);
         addressDialog=new MaterialDialog(this);
+
+
+       invoiceButton = findViewById(R.id.invoice_transfer);
 
         LayoutInflater mInflater = (LayoutInflater)
                 this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
@@ -231,13 +237,17 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        Button invoiceButton = findViewById(R.id.invoice_transfer);
+        sp = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("orderId",orderId );
+        editor.commit();
 
         invoiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this,InvoiceActivity.class);
-                startActivity(intent);
+                Intent intentID = new Intent(SearchActivity.this,InvoiceActivity.class);
+                //intent.putExtra("IDorder",orderId);
+                startActivity(intentID);
             }
         });
 

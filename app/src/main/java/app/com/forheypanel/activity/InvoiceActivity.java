@@ -1,5 +1,7 @@
 package app.com.forheypanel.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +29,9 @@ public class InvoiceActivity extends AppCompatActivity {
 
 //    @Bind(R.id.recInventoryCustom)
    RecyclerView recInVentory2;
+    Intent intent;
+
+    private Bundle getgroup;
 
 
 
@@ -37,6 +42,7 @@ public class InvoiceActivity extends AppCompatActivity {
     ArrayList<Inventory> arrayList;
 
     CustomAdapter customAdapter;
+
 
     String TAG = getClass().getName();
     // List<Inventory> inventList;
@@ -65,6 +71,12 @@ public class InvoiceActivity extends AppCompatActivity {
         arrayList=new ArrayList<Inventory>();
         adapter=new InventoryAdapter2(arrayList,this,this);
         recInVentory2.setAdapter(adapter);
+
+//        getgroup=getIntent().getExtras();
+//        orderId=getgroup.getString("OrderId");
+
+
+
 
         loadInventory();
 
@@ -98,9 +110,31 @@ public class InvoiceActivity extends AppCompatActivity {
 //        });
 //    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            loadInventory();
+        }
+    }
+
+    //"MO12102264"
+
     void loadInventory(){
 
-        App.supportService.getInventory(orderId,"GetClientInventory").enqueue(new Callback<InventoryList>() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
+       String idOrder = sharedPreferences.getString("orderId","");
+
+
+       // String ID = getArguments().getString("ID");
+
+
+
+       // String IDorder = intent.getStringExtra("IDorder");
+
+       // Toast.makeText(this, idOrder, Toast.LENGTH_SHORT).show();
+
+        App.supportService.getInventory(idOrder,"GetClientInventory").enqueue(new Callback<InventoryList>() {
             @Override
             public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
                 Log.d(TAG,response.toString());

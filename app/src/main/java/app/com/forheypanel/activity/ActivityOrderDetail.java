@@ -47,6 +47,8 @@ import retrofit2.Response;
 
 public class ActivityOrderDetail extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
 
+    SharedPreferences sp;
+
     @Bind(R.id.tvClientName)
     TextView tvClientName;
 
@@ -97,14 +99,15 @@ public class ActivityOrderDetail extends BaseActivity implements AppBarLayout.On
     @Bind(R.id.tvOrderWeight)
     TextView tvWeight;
 
-    @Bind(R.id.invoice_transfer)
-    Button invoiceButton;
+//    @Bind(R.id.invoice_transfer)
+//    Button invoiceButton;
 
 
     ProgressDialog pDialog;
     String orderId,medium;
 
     SharedPreferences mprefs;
+
 
     private static final int PERCENTAGE_TO_SHOW_IMAGE = 20;
     private int mMaxScrollSize;
@@ -124,14 +127,18 @@ public class ActivityOrderDetail extends BaseActivity implements AppBarLayout.On
         ButterKnife.bind(this);
 
 
-        invoiceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ActivityOrderDetail.this, "clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ActivityOrderDetail.this,InvoiceActivity.class);
-                startActivity(intent);
-            }
-        });
+//        invoiceButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(ActivityOrderDetail.this, "clicked", Toast.LENGTH_SHORT).show();
+//                intent = new Intent(ActivityOrderDetail.this,InvoiceActivity.class);
+//               // intent.putExtra("IDorder",orderId);
+//                startActivity(intent);
+//            }
+//        });
+
+
+
 
         setSupportActionBar(toolbar_order_det);
         mprefs=getSharedPreferences("Credentials", Context.MODE_PRIVATE);
@@ -149,15 +156,41 @@ public class ActivityOrderDetail extends BaseActivity implements AppBarLayout.On
         if (getgroup != null){
             orderId=getgroup.getString("OrderId");
             pDialog.show();
+
+
+
+
+
+
+
+
             App.supportService.getOrdersByServerCode("getOrderbyServerCode",orderId).enqueue(new Callback<OrderList>() {
                 @Override
                 public void onResponse(Call<OrderList> call, Response<OrderList> response) {
                     OrderList orderList=response.body();
                     pDialog.hide();
                     if (orderList.success==1){
+
+
+
                         for (IdvOrder order :orderList.order_list){
+
+
+//                            SharedPreferences.Editor editor = sp.edit();
+//                            editor.putString("order",orderId );
+//                            editor.commit();
+
+
+//                            Bundle args = new Bundle();
+//                            args.putString("ID", orderId);
+
+
                             tvClientName.setText(order.client_name);
                             tvOrderId.setText(orderId);
+                            String x = orderId;
+
+
+
                             tvPickupDate.setText(factorDate(order.pickup_date)+" "+order.pick_from_time);
                             tvClientPhone.setText(order.client_phone);
                             tvPickupPoint.setText(order.pickup_point.toUpperCase());

@@ -2,6 +2,7 @@ package app.com.forheypanel.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,6 +32,8 @@ import retrofit2.Response;
  */
 
 public class InventoryListActivity extends AppCompatActivity {
+
+    SharedPreferences sp;
 
     @Bind(R.id.recInventory)
     RecyclerView recInVentory;
@@ -71,6 +74,13 @@ public class InventoryListActivity extends AppCompatActivity {
                 loadInventory();
             }
         });
+
+         sp = this.getSharedPreferences("com.forheypanel.activity", MODE_PRIVATE);
+        String x = orderId;
+
+
+
+
 
         loadInventory();
     }
