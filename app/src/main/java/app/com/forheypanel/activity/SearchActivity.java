@@ -647,6 +647,16 @@ public class SearchActivity extends AppCompatActivity {
                         if (orderList.success==1){
                             for (IdvOrder order: orderList.order_list){
                                 tvPickupDate.setText(factorDate(order.pickup_date)+" "+order.pick_from_time);
+
+
+                                sp = getSharedPreferences("com.forheypanel", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putString("orderDate",order.pickup_date);
+                                editor.putString("orderTime",order.pick_from_time);
+                                editor.commit();
+
+
+
                                 tvPickupTime.setText(order.pick_from_time);
                                 tvName.setText(order.client_name);
                                 tvPhone.setText(order.client_phone);

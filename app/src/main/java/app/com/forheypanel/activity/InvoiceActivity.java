@@ -9,10 +9,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import app.com.forheypanel.R;
 import app.com.forheypanel.adapter.CustomAdapter;
@@ -27,58 +33,58 @@ import retrofit2.Response;
 
 public class InvoiceActivity extends AppCompatActivity {
 
-//    @Bind(R.id.recInventoryCustom)
-   RecyclerView recInVentory2;
+    //    @Bind(R.id.recInventoryCustom)
+    RecyclerView recInVentory2;
     Intent intent;
-
-    private Bundle getgroup;
-
-
-
     public static String orderId;
 
     private LinearLayoutManager lLayout;
     InventoryAdapter2 adapter;
     ArrayList<Inventory> arrayList;
 
-    CustomAdapter customAdapter;
+   private TextView DateInvoice;
+   private Button InvoiceSend;
 
 
     String TAG = getClass().getName();
-    // List<Inventory> inventList;
-    ArrayList<Inventory> inventorList;
-    ListView listView;
 
 
-    // String  INVOICESTRING [] = {"BedSheet","BedCover","Trouser","Duvet"};
-
-    // double PRICE [] =  {2.90,3.50,4.00,2.50};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice);
 
-//        listView = findViewById(R.id.invoiceList);
-//        inventorList = new ArrayList<Inventory>();
-//        customAdapter = new CustomAdapter(inventorList, this, this);
-//        listView.setAdapter(customAdapter);
+
         recInVentory2 = findViewById(R.id.recInventoryCustom);
 
-        lLayout = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        InvoiceSend = findViewById(R.id.invoiceSent);
+
+        lLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recInVentory2.setHasFixedSize(true);
         recInVentory2.setLayoutManager(lLayout);
-        arrayList=new ArrayList<Inventory>();
-        adapter=new InventoryAdapter2(arrayList,this,this);
+        arrayList = new ArrayList<Inventory>();
+        adapter = new InventoryAdapter2(arrayList, this, this);
+        DateInvoice = findViewById(R.id.invoicedate);
         recInVentory2.setAdapter(adapter);
 
-//        getgroup=getIntent().getExtras();
-//        orderId=getgroup.getString("OrderId");
+        InvoiceSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openInvoiceDialog();
+            }
+        });
 
 
 
 
         loadInventory();
+
+    }
+
+    private void openInvoiceDialog() {
+        ExampleDialog invoiceDialog = new ExampleDialog();
+        invoiceDialog.show(getSupportFragmentManager(),"invoice Dialog");
 
     }
 
@@ -110,48 +116,68 @@ public class InvoiceActivity extends AppCompatActivity {
 //        });
 //    }
 
+
+    public String factorDate(String params) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        String dayOfTheWeek = "", mn = "", res = "";
+        Date d = null;
+        try {
+            d = formatter.parse(params);//catch exception
+            dayOfTheWeek = (String) android.text.format.DateFormat.format("EEEE", d);
+            mn = (String) android.text.format.DateFormat.format("MMM", d);
+            res = dayOfTheWeek + " " + d.getDate() + "/" + mn;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             loadInventory();
         }
     }
 
     //"MO12102264"
 
-    void loadInventory(){
+    void loadInventory() {
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
-       String idOrder = sharedPreferences.getString("orderId","");
+        String idOrder = sharedPreferences.getString("orderId", "");
+        final String idDate =sharedPreferences.getString("orderDate","");
+        final String idTime = sharedPreferences.getString("orderTime","");
+        DateInvoice.setText(idDate);
 
 
-       // String ID = getArguments().getString("ID");
+        // String ID = getArguments().getString("ID");
 
 
+        // String IDorder = intent.getStringExtra("IDorder");
 
-       // String IDorder = intent.getStringExtra("IDorder");
+        // Toast.makeText(this, idOrder, Toast.LENGTH_SHORT).show();
 
-       // Toast.makeText(this, idOrder, Toast.LENGTH_SHORT).show();
-
-        App.supportService.getInventory(idOrder,"GetClientInventory").enqueue(new Callback<InventoryList>() {
+        App.supportService.getInventory(idOrder, "GetClientInventory").enqueue(new Callback<InventoryList>() {
             @Override
             public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
-                Log.d(TAG,response.toString());
+                Log.d(TAG, response.toString());
                 //progressDialog.dismiss();
-               // swipeRefreshLayout.setRefreshing(false);
-                if (response.isSuccessful()){
-                    if (response.body().success==1){
-                        if (response.body().clientInventory.size()>0) {
+                // swipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccessful()) {
+                    if (response.body().success == 1) {
+                        if (response.body().clientInventory.size() > 0) {
                             adapter.updateList(response.body().clientInventory);
-                            //recInVentory.setAdapter(new InventoryAdapter(response.body().clientInventory,InventoryListActivity.this,InventoryListActivity.this));
-                        }else Toast.makeText(InvoiceActivity.this, "No inventory found!", Toast.LENGTH_SHORT).show();
-                    }else{
+
+
+                        } else
+                            Toast.makeText(InvoiceActivity.this, "No inventory found!", Toast.LENGTH_SHORT).show();
+                    } else {
                         Toast.makeText(InvoiceActivity.this, "Failed to load Inventory", Toast.LENGTH_SHORT).show();
                     }
                     // Log.d(TAG,response.toString());
-                }else{
-                    Log.d(TAG,response.toString());
+                } else {
+                    Log.d(TAG, response.toString());
                 }
             }
 
@@ -161,42 +187,10 @@ public class InvoiceActivity extends AppCompatActivity {
                 t.printStackTrace();
                 // Log.d(TAG,t.printStackTrace());
                 //swipeRefreshLayout.setRefreshing(false);
-               // Toast.makeText(InventoryListActivity.this, "Failed to load inventory", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(InventoryListActivity.this, "Failed to load inventory", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
-//
-//    class CustomAdapter extends BaseAdapter {
-//        @Override
-//        public int getCount() {
-//            return INVOICESTRING.length;
-//        }
-//
-//        @Override
-//        public Object getItem(int i) {
-//            return null;
-//        }
-//
-//        @Override
-//        public long getItemId(int i) {
-//            return 0;
-//        }
-//
-//        @Override
-//        public View getView(int i, View view, ViewGroup viewGroup) {
-//           view = getLayoutInflater().inflate(R.layout.custom_layout,null);
-//
-//            TextView textView_product = view.findViewById(R.id.product);
-//            TextView textView_price = view.findViewById(R.id.price);
-//            TextView textView_quantity = view.findViewById(R.id.quantity);
-//
-//            textView_product.setText(INVOICESTRING[i]);
-//            textView_price.setText(String.valueOf(PRICE[i])+"0");
-//            textView_quantity.setText("2");
-//
-//
-//            return view;
-//        }
-//    }
+
 }

@@ -171,7 +171,8 @@
             android:name="io.fabric.ApiKey"
             android:value="efebe29321106f4be524076b443f0d791a2987cf" />
 
-        <activity android:name=".activity.InvoiceActivity"></activity>
+        <activity android:name=".activity.InvoiceActivity"
+            android:theme="@style/AppTheme_New"></activity>
     </application>
 
 </manifest>
