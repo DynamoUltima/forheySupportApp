@@ -88,33 +88,7 @@ public class InvoiceActivity extends AppCompatActivity {
 
     }
 
-//    void loadInventory() {
-//
-//        App.supportService.getInventory(orderId, "GetClientInventory").enqueue(new Callback<InventoryList>() {
-//            @Override
-//            public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
-//                Log.d(TAG, response.toString());
-//                //progressDialog.dismiss();
-//                if (response.body().clientInventory.size()>0) {
-//                    Log.d(TAG, response.toString());
-//                    adapter.updateList(response.body().clientInventory);
-//                    //customAdapter = new CustomAdapter(getApplicationContext(),inventorList);
-//                    //listView.setAdapter(customAdapter);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<InventoryList> call, Throwable t) {
-//                //progressDialog.dismiss();
-//                t.printStackTrace();
-//                // Log.d(TAG,t.printStackTrace());
-//
-//                Toast.makeText(InvoiceActivity.this, "Failed to load inventory", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//    }
+
 
 
     public String factorDate(String params) {
@@ -140,7 +114,7 @@ public class InvoiceActivity extends AppCompatActivity {
         }
     }
 
-    //"MO12102264"
+
 
     void loadInventory() {
 

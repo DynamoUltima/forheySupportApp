@@ -143,7 +143,7 @@ public interface SupportService  {
     @POST("forhey_mobile_scripts/clientInventory.php")
     Call <Inventory>addInventory (@Field("orderId") String orderId,
                                      @Field("item") String item, @Field("noOfItems") String number,
-                                     @Field("type") String type,@Field("tag") String tag);
+                                     @Field("type") String type,@Field("tag") String tag,@Field("price") double price);
 
     @FormUrlEncoded
     @POST("forhey_mobile_scripts/clientInventory.php")

@@ -43,6 +43,10 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
         holder.tvGarment.setText(inventory.getItem());
         holder.tvQty.setText(inventory.getNoOfITems());
         holder.tvService.setText(inventory.getType());
+        holder.tvPrice.setText("₵"+inventory.getPrice()+"0");
+
+        String pricer = inventory.getPrice();
+
         switch (inventory.getType()){
             case "Wash & Fold":
                 holder.tvService.setTextColor(context.getResources().getColor(R.color.washnFold));
@@ -96,7 +100,7 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
     public class ViewHolder extends RecyclerView.ViewHolder{
         public final View itemView;
         public final TextView tvGarment;
-        public final TextView tvQty,tvService;
+        public final TextView tvQty,tvService,tvPrice;
 
 
         public ViewHolder(View itemView) {
@@ -105,6 +109,7 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
             tvGarment=(TextView)itemView.findViewById(R.id.tvGarment2);
             tvQty=(TextView)itemView.findViewById(R.id.tvQty2);
             tvService=(TextView)itemView.findViewById(R.id.tvService2);
+            tvPrice= itemView.findViewById(R.id.invoice_price);
         }
     }
 

@@ -76,7 +76,7 @@ public class InventoryListActivity extends AppCompatActivity {
         });
 
          sp = this.getSharedPreferences("com.forheypanel.activity", MODE_PRIVATE);
-        String x = orderId;
+
 
 
 

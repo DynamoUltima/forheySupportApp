@@ -9,8 +9,19 @@ public class Inventory {
     String item,noOfItems,type;
     String no_of_items;
     int id;
+   String price;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public int success;
     public int error;
+
 
     public String getItem() {
         return item;
