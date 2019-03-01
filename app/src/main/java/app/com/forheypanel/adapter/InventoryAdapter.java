@@ -46,6 +46,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
         switch (inventory.getType()){
             case "Wash & Fold":
                 holder.tvService.setTextColor(context.getResources().getColor(R.color.washnFold));
+                holder.tvQty.setText(inventory.getNoOfITems()+"kg");
+                holder.quantityView.setText("Weight");
                 break;
             case "Laundry":
                 holder.tvService.setTextColor(context.getResources().getColor(R.color.laundry));
@@ -99,12 +101,13 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder{
         public final View itemView;
         public final TextView tvGarment;
-        public final TextView tvQty,tvService;
+        public final TextView tvQty,tvService,quantityView;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.itemView=itemView;
+            quantityView = itemView.findViewById(R.id.quantityView);
             tvGarment=(TextView)itemView.findViewById(R.id.tvGarment);
             tvQty=(TextView)itemView.findViewById(R.id.tvQty);
             tvService=(TextView)itemView.findViewById(R.id.tvService);

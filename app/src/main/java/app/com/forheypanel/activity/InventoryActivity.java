@@ -6,6 +6,8 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +58,7 @@ public class InventoryActivity extends AppCompatActivity {
     RadioGroup rgService;
 
     @Bind(R.id.edtWeight)
-    AutoCompleteTextView edtWeight;
+    EditText edtWeight;
 
     @Bind(R.id.textView8)
     TextView weightText;
@@ -79,6 +81,8 @@ public class InventoryActivity extends AppCompatActivity {
     private List<CountryItem> countryList;
     AutoCompleteCountryAdapter adapter;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,8 +97,13 @@ public class InventoryActivity extends AppCompatActivity {
         rbWashFold.setChecked(true);
         quantityText.setVisibility(View.GONE);
         edtQuantity.setVisibility(View.GONE);
+        //actGarment.setVisibility(View.GONE);
+        actGarment.setOnItemClickListener(onItemClickListener);
+
 
         fillCountryList();
+
+        calculatePrice();
 
 
 //        String[] countries = getResources().getStringArray(R.array.list_of_garments);
@@ -102,10 +111,11 @@ public class InventoryActivity extends AppCompatActivity {
 //                (this, android.R.layout.simple_list_item_1, countries);
 //        actGarment.setAdapter(adapter);
 
-         adapter = new AutoCompleteCountryAdapter(this, countryList);
-       // edtWeight.setAdapter(adapterWeight);
+        adapter = new AutoCompleteCountryAdapter(this, countryList);
+        // edtWeight.setAdapter(adapterWeight);
         actGarment.setAdapter(adapter);
-        actGarment.setOnItemClickListener(onItemClickListener);
+
+        //edtWeight.addTextChangedListener((TextWatcher) onItemClickListener);
 
 
         rgService.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -119,6 +129,7 @@ public class InventoryActivity extends AppCompatActivity {
                         weightText.setVisibility(View.VISIBLE);
                         edtQuantity.setVisibility(View.GONE);
                         quantityText.setVisibility(View.GONE);
+                        actGarment.setVisibility(View.VISIBLE);
 
 
                         break;
@@ -129,6 +140,7 @@ public class InventoryActivity extends AppCompatActivity {
                         weightText.setVisibility(View.GONE);
                         quantityText.setVisibility(View.VISIBLE);
                         edtQuantity.setVisibility(View.VISIBLE);
+                        actGarment.setVisibility(View.VISIBLE);
                         break;
                     case R.id.rdPressOnly:
                         type = "Press Only";
@@ -136,6 +148,8 @@ public class InventoryActivity extends AppCompatActivity {
                         weightText.setVisibility(View.GONE);
                         quantityText.setVisibility(View.VISIBLE);
                         edtQuantity.setVisibility(View.VISIBLE);
+                        actGarment.setVisibility(View.VISIBLE);
+
                         break;
                     case R.id.rdLaundry:
                         type = "Laundry";
@@ -143,6 +157,8 @@ public class InventoryActivity extends AppCompatActivity {
                         weightText.setVisibility(View.GONE);
                         quantityText.setVisibility(View.VISIBLE);
                         edtQuantity.setVisibility(View.VISIBLE);
+                        actGarment.setVisibility(View.VISIBLE);
+
 
                         break;
                 }
@@ -153,6 +169,8 @@ public class InventoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateInput()) {
+
+//                    calculatePrice();
                     addInventoryItem();
                 }
             }
@@ -161,32 +179,110 @@ public class InventoryActivity extends AppCompatActivity {
 
     }
 
-    private AdapterView.OnItemClickListener onItemClickListener =
+    AdapterView.OnItemClickListener onItemClickListener =
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-                    if (type.equals("Dry Cleaning")){
+                    String myQuantity = edtQuantity.getText().toString();
+                    final String myWeight = edtWeight.getText().toString();
+                    if (type.equals("Dry Cleaning")) {
                         //edtQuantity.addTextChangedListener();
-                        currentPrice = adapter.getItem(i).getDryCleaning()  * Double.parseDouble(edtQuantity.getText().toString());
-                        garmentPrice.setText(String.valueOf(currentPrice));
-                    }else if (type.equals("Press Only")){
-                        currentPrice = adapter.getItem(i).getPressOnly()  * Double.parseDouble(edtQuantity.getText().toString());
-                        garmentPrice.setText(String.valueOf(currentPrice));
+                        if (!myQuantity.isEmpty()) {
+                            currentPrice = adapter.getItem(i).getDryCleaning() * Double.parseDouble(edtQuantity.getText().toString());
+                            garmentPrice.setText("GH¢"+String.valueOf(currentPrice));
+                        } else {
+                            edtQuantity.setError("Enter Quantity");
+                        }
+                    } else if (type.equals("Press Only")) {
+                        if (!myQuantity.isEmpty()) {
+                            currentPrice = adapter.getItem(i).getPressOnly() * Double.parseDouble(edtQuantity.getText().toString());
+                            garmentPrice.setText("GH¢ "+String.valueOf(currentPrice));
+                        } else {
+                            edtQuantity.setError("Enter Quantity");
+                        }
 
-                    }else if (type.equals("Laundry")){
-                        currentPrice = adapter.getItem(i).getLaundry()  * Double.parseDouble(edtQuantity.getText().toString());
-                        garmentPrice.setText(String.valueOf(currentPrice));
+                    } else if (type.equals("Laundry")) {
+                        if (!myQuantity.isEmpty()) {
+                            currentPrice = adapter.getItem(i).getLaundry() * Double.parseDouble(edtQuantity.getText().toString());
+                            garmentPrice.setText("GH¢"+String.valueOf(currentPrice));
+                        } else {
+                            edtQuantity.setError("Enter Quantity");
+                        }
+
+                    } else if (type.equals("Wash & Fold")) {
+                        final String et = edtWeight.getText().toString();
+
+                                try {
+                                    //double weightValue = Double.parseDouble(et);
+                                    Integer weightValue = Integer.parseInt(et);
+
+
+                                    if (!myWeight.isEmpty()) {
+                                        if (weightValue < 5) {
+                                            currentPrice = 45.0;
+                                            garmentPrice.setText(String.valueOf(currentPrice));
+
+                                        } else if (weightValue > 5 &&
+                                                weightValue < 10) {
+                                            currentPrice = 75.0;
+                                            garmentPrice.setText(String.valueOf(currentPrice));
+                                        } else if (weightValue >= 10 &&
+                                                weightValue <= 12) {
+                                            currentPrice = 100.0;
+                                            garmentPrice.setText(String.valueOf(currentPrice));
+                                        } else {
+                                            edtWeight.setError("Enter Weight");
+                                        }
+                                    }
+
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(InventoryActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                }
+
 
                     }
-//
-//
-//
-
 
                 }
             };
+
+    public void calculatePrice() {
+        AdapterView.OnItemClickListener onItemClickListener =
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        String myQuantity = edtQuantity.getText().toString();
+                        if (type.equals("Dry Cleaning")) {
+                            //edtQuantity.addTextChangedListener();
+                            if (!myQuantity.isEmpty()) {
+                                currentPrice = adapter.getItem(i).getDryCleaning() * Double.parseDouble(edtQuantity.getText().toString());
+                                garmentPrice.setText(String.valueOf(currentPrice));
+                            } else {
+                                edtQuantity.setError("Enter Quantity");
+                            }
+                        } else if (type.equals("Press Only")) {
+                            if (!myQuantity.isEmpty()) {
+                                currentPrice = adapter.getItem(i).getPressOnly() * Double.parseDouble(edtQuantity.getText().toString());
+                                garmentPrice.setText(String.valueOf(currentPrice));
+                            } else {
+                                edtQuantity.setError("Enter Quantity");
+                            }
+
+                        } else if (type.equals("Laundry")) {
+                            if (!myQuantity.isEmpty()) {
+                                currentPrice = adapter.getItem(i).getLaundry() * Double.parseDouble(edtQuantity.getText().toString());
+                                garmentPrice.setText(String.valueOf(currentPrice));
+                            } else {
+                                edtQuantity.setError("Enter Quantity");
+                            }
+
+                        }
+
+                    }
+                };
+    }
 
     private void fillCountryList() {
         countryList = new ArrayList<>();
@@ -272,14 +368,19 @@ public class InventoryActivity extends AppCompatActivity {
     boolean validateInput() {
         boolean result = true;
         if (actGarment.getText().toString().isEmpty()) {
-           // Toast.makeText(this, String.valueOf(garmentPrice), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, String.valueOf(garmentPrice), Toast.LENGTH_SHORT).show();
             Toast.makeText(InventoryActivity.this, "Enter Garment Type", Toast.LENGTH_SHORT).show();
             result = false;
-        }/** get the correct condition statement to complete the validation**/
-//        } else if (edtQuantity.getText().toString().isEmpty()|| edtWeight.getText().toString().isEmpty()) {
-//            Toast.makeText(InventoryActivity.this, "Enter Quantity or Weight", Toast.LENGTH_SHORT).show();
-//            result = false;
-//        }
+            /** get the correct condition statement to complete the validation**/
+        } else if (!type.equals("Wash & Fold") && edtQuantity.getText().toString().isEmpty()) {
+            Toast.makeText(InventoryActivity.this, "Enter Quantity ", Toast.LENGTH_SHORT).show();
+            result = false;
+        } else if (type.equals("Wash & Fold") && edtWeight.getText().toString().isEmpty()) {
+            edtWeight.setError("Enter weight");
+            Toast.makeText(this, "Enter weight", Toast.LENGTH_SHORT).show();
+        } else {
+            edtWeight.setError(null);
+        }
         return result;
     }
 
@@ -297,7 +398,7 @@ public class InventoryActivity extends AppCompatActivity {
 
         progressDialog.show();
         App.supportService.addInventory(orderId, actGarment.getText().toString(), amount,
-                type, "AddInventory",7.0).enqueue(new Callback<Inventory>() {
+                type, "AddInventory", currentPrice).enqueue(new Callback<Inventory>() {
             @Override
             public void onResponse(Call<Inventory> call, Response<Inventory> response) {
                 progressDialog.dismiss();

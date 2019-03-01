@@ -26,6 +26,7 @@
         android:weightSum="2"
         android:layout_marginTop="3dp">
         <TextView
+            android:id="@+id/quantityView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

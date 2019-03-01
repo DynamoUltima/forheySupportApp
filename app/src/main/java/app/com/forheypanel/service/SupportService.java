@@ -170,6 +170,10 @@ public interface SupportService  {
     @POST("forhey_mobile_scripts/clientInventory.php")
     Call<InventorySummary> addWashNFold(@Field("tag") String tag,@Field("orderId") String orderId, @Field("weight") String weight);
 
+
+    @POST("forhey_mobile_scripts/clientInventory.php")
+    Call <InventoryList>sendInventory(@Field("orderId") String orderId,@Field("tag") String tag,@Field("clientInventory[]") ArrayList<Inventory> arrayList);
+
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SupportService.forhey_domain)
             .addConverterFactory(GsonConverterFactory.create())

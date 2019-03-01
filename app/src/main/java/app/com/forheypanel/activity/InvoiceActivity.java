@@ -42,12 +42,11 @@ public class InvoiceActivity extends AppCompatActivity {
     InventoryAdapter2 adapter;
     ArrayList<Inventory> arrayList;
 
-   private TextView DateInvoice;
-   private Button InvoiceSend;
+    private TextView DateInvoice, InvoiceNo;
+    private Button InvoiceSend;
 
 
     String TAG = getClass().getName();
-
 
 
     @Override
@@ -66,16 +65,17 @@ public class InvoiceActivity extends AppCompatActivity {
         arrayList = new ArrayList<Inventory>();
         adapter = new InventoryAdapter2(arrayList, this, this);
         DateInvoice = findViewById(R.id.invoicedate);
+        InvoiceNo = findViewById(R.id.invoiceNo);
         recInVentory2.setAdapter(adapter);
 
         InvoiceSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                postInvoice();
                 openInvoiceDialog();
             }
         });
-
-
 
 
         loadInventory();
@@ -84,11 +84,9 @@ public class InvoiceActivity extends AppCompatActivity {
 
     private void openInvoiceDialog() {
         ExampleDialog invoiceDialog = new ExampleDialog();
-        invoiceDialog.show(getSupportFragmentManager(),"invoice Dialog");
+        invoiceDialog.show(getSupportFragmentManager(), "invoice Dialog");
 
     }
-
-
 
 
     public String factorDate(String params) {
@@ -115,14 +113,14 @@ public class InvoiceActivity extends AppCompatActivity {
     }
 
 
-
     void loadInventory() {
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
         String idOrder = sharedPreferences.getString("orderId", "");
-        final String idDate =sharedPreferences.getString("orderDate","");
-        final String idTime = sharedPreferences.getString("orderTime","");
+        final String idDate = sharedPreferences.getString("orderDate", "");
+        final String idTime = sharedPreferences.getString("orderTime", "");
         DateInvoice.setText(idDate);
+        InvoiceNo.setText(idOrder);
 
 
         // String ID = getArguments().getString("ID");
@@ -133,6 +131,43 @@ public class InvoiceActivity extends AppCompatActivity {
         // Toast.makeText(this, idOrder, Toast.LENGTH_SHORT).show();
 
         App.supportService.getInventory(idOrder, "GetClientInventory").enqueue(new Callback<InventoryList>() {
+            @Override
+            public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
+                Log.d(TAG, response.toString());
+                //progressDialog.dismiss();
+                // swipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccessful()) {
+                    if (response.body().success == 1) {
+                        if (response.body().clientInventory.size() > 0) {
+                            adapter.updateList(response.body().clientInventory);
+
+                        } else
+                            Toast.makeText(InvoiceActivity.this, "No inventory found!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(InvoiceActivity.this, "Failed to load Inventory", Toast.LENGTH_SHORT).show();
+                    }
+                    // Log.d(TAG,response.toString());
+                } else {
+                    Log.d(TAG, response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InventoryList> call, Throwable t) {
+                //progressDialog.dismiss();
+                t.printStackTrace();
+                // Log.d(TAG,t.printStackTrace());
+                //swipeRefreshLayout.setRefreshing(false);
+                // Toast.makeText(InventoryListActivity.this, "Failed to load inventory", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void postInvoice() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
+        String idOrder = sharedPreferences.getString("orderId", "");
+        App.supportService.sendInventory(idOrder, "GetClientInventory",arrayList).enqueue(new Callback<InventoryList>() {
             @Override
             public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
                 Log.d(TAG, response.toString());
