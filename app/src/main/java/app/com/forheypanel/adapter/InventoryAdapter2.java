@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,34 +30,43 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
 
     ArrayList<Inventory> itemList;
     Context context;
-    String TAG=getClass().getName();
+    String TAG = getClass().getName();
     InvoiceActivity invLAct;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView= LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_layout,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_layout, parent, false);
         return new InventoryAdapter2.ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-       final Inventory inventory=itemList.get(position);
+        final Inventory inventory = itemList.get(position);
         holder.tvGarment.setText(inventory.getItem());
         holder.tvQty.setText(inventory.getNoOfITems());
         holder.tvService.setText(inventory.getType());
-        holder.tvPrice.setText("₵"+inventory.getPrice()+".0");
+        holder.tvPrice.setText("₵" + inventory.getPrice() + ".0");
+
+        int sum = 0;
+        for (int i = 0; i < itemList.size(); i++) {
+            Inventory list = itemList.get(i);
+            int price = list.getPrice();
+            sum+= price;
+
+        }
+        Toast.makeText(context,String.valueOf(sum) , Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.forheypanel", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putFloat("summer",sum);
 
 
 
+        // String pricer = inventory.getPrice();
 
-
-
-        String pricer = inventory.getPrice();
-
-        switch (inventory.getType()){
+        switch (inventory.getType()) {
             case "Wash & Fold":
                 holder.tvService.setTextColor(context.getResources().getColor(R.color.washnFold));
-                holder.tvQty.setText(inventory.getNoOfITems()+"kg");
+                holder.tvQty.setText(inventory.getNoOfITems() + "kg");
                 break;
             case "Laundry":
                 holder.tvService.setTextColor(context.getResources().getColor(R.color.laundry));
@@ -73,16 +84,16 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setItems(R.array.inv_options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d(TAG,"Position "+i);
+                        Log.d(TAG, "Position " + i);
 
-                        if (i==0){
-                            EditInventoryActivity.item=inventory;
+                        if (i == 0) {
+                            EditInventoryActivity.item = inventory;
                             invLAct.startActivityForResult(new Intent(context,
-                                    EditInventoryActivity.class),102);
+                                    EditInventoryActivity.class), 102);
 
                         }
                     }
@@ -99,32 +110,31 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
     }
 
     public void updateList(ArrayList<Inventory> clientInventory) {
-        this.itemList=clientInventory;
+        this.itemList = clientInventory;
         this.notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public final View itemView;
         public final TextView tvGarment;
-        public final TextView tvQty,tvService,tvPrice;
-
+        public final TextView tvQty, tvService, tvPrice;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.itemView=itemView;
+            this.itemView = itemView;
 
-            tvGarment=(TextView)itemView.findViewById(R.id.tvGarment2);
-            tvQty=(TextView)itemView.findViewById(R.id.tvQty2);
-            tvService=(TextView)itemView.findViewById(R.id.tvService2);
-            tvPrice= itemView.findViewById(R.id.invoice_price);
+            tvGarment = (TextView) itemView.findViewById(R.id.tvGarment2);
+            tvQty = (TextView) itemView.findViewById(R.id.tvQty2);
+            tvService = (TextView) itemView.findViewById(R.id.tvService2);
+            tvPrice = itemView.findViewById(R.id.invoice_price);
         }
     }
 
     public InventoryAdapter2(ArrayList<Inventory> itemList, Context context, InvoiceActivity invLAct) {
         this.itemList = itemList;
         this.context = context;
-        this.invLAct=invLAct;
+        this.invLAct = invLAct;
     }
 }
 

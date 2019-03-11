@@ -1,21 +1,24 @@
-package app.com.forheypanel.model;
+package app.com.forheypanel.activity;
 
-/**
- * Created by nayrammensah on 9/21/17.
- */
-
-public class Inventory {
-
+public class InvoiceList {
     String item,noOfItems,type;
     String no_of_items;
     int id;
-   int price;
+    String price;
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public InvoiceList(String item, String noOfItems, String type, String no_of_items, String price) {
+        this.item = item;
+        this.noOfItems = noOfItems;
+        this.type = type;
+        this.no_of_items = no_of_items;
+        this.price = price;
+    }
+
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -33,7 +36,7 @@ public class Inventory {
 
     public String getNoOfITems() {
         if (noOfItems !=null && !noOfItems.isEmpty())
-        return noOfItems;
+            return noOfItems;
         else return no_of_items;
     }
 

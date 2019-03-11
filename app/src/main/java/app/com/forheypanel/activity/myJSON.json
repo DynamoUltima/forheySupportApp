@@ -1,0 +1,692 @@
+{
+  "8": {
+    "Code": "DC: LADIES JACKET",
+    "Name": "LADIES JACKET (DRY CLEANING)"
+  },
+  "9": {
+    "Code": "DC: OVC",
+    "Name": "OVERCOAT (DRY CLEANING)"
+  },
+  "10": {
+    "Code": "DC: PILLOW",
+    "Name": "PILLOW (DRY CLEAN)"
+  },
+  "11": {
+    "Code": "DC:3PCCSLITKABA",
+    "Name": "SLIT & KABA 3PCs (DRY CLEANING)"
+  },
+  "12": {
+    "Code": "DC:BLSE",
+    "Name": "BLOUSE (DRY CLEANING)"
+  },
+  "13": {
+    "Code": "DC:BLSE-SLK",
+    "Name": "BLOUSE SILK (DRY CLEANING)"
+  },
+  "14": {
+    "Code": "DC:BXRS",
+    "Name": "BOXERS (DRY CLEANING)"
+  },
+  "15": {
+    "Code": "DC:CAFTAN TOP",
+    "Name": "CAFTAN TOP (DRY CLEANING)"
+  },
+  "16": {
+    "Code": "DC:Caftan2PCs",
+    "Name": "CAFTAN 2PCs (DRY CLEANING)"
+  },
+  "17": {
+    "Code": "DC:Caftan3PC",
+    "Name": "CAFTAN 3PCs (DRY CLEANING)"
+  },
+  "18": {
+    "Code": "DC:CHILD:CAFTAN TOP",
+    "Name": "CAFTAN TOP (CHILD)"
+  },
+  "19": {
+    "Code": "DC:CHLDDRSS",
+    "Name": "CHILD DRESS (DRY CLEANING)"
+  },
+  "20": {
+    "Code": "DC:CHLDJCKT",
+    "Name": "CHILD JACKET (DRY CLEANING)"
+  },
+  "21": {
+    "Code": "DC:CHLDPLTSHRT",
+    "Name": "CHILD POLO/T-SHIRT (DRY CLEANING)"
+  },
+  "22": {
+    "Code": "DC:CHLDSHIRT",
+    "Name": "CHILD SHIRT (DRY CLEANING)"
+  },
+  "23": {
+    "Code": "DC:CHLDSHORTS",
+    "Name": "CHILD SHORTS (DRY CLEANING)"
+  },
+  "24": {
+    "Code": "DC:CHLDSKRT",
+    "Name": "CHILD SKIRT (DRY CLEANING)"
+  },
+  "25": {
+    "Code": "DC:CHLDSUIT",
+    "Name": "CHILD SUIT (DRY CLEANING)"
+  },
+  "26": {
+    "Code": "DC:CHLDTRAD1PC",
+    "Name": "CHILD TRAD CLOTH 1PC (DRY CLEANING)"
+  },
+  "27": {
+    "Code": "DC:CHLDTRAD2PC",
+    "Name": "CHILD TRAD CLOTH 2PC (DRY CLEANING)"
+  },
+  "28": {
+    "Code": "DC:CHLDTRSRS",
+    "Name": "CHILD TROUSERS (DRY CLEANING)"
+  },
+  "29": {
+    "Code": "DC:COAT:COAT(DRY CLEANING)",
+    "Name": "COAT"
+  },
+  "30": {
+    "Code": "DC:CV",
+    "Name": "CHILD VEST"
+  },
+  "31": {
+    "Code": "DC:JACKET",
+    "Name": "JACKET (DRY CLEANING)"
+  },
+  "32": {
+    "Code": "DC:JEANS",
+    "Name": "JEANS (DRY CLEANING)"
+  },
+  "33": {
+    "Code": "DC:JUMPSUIT(DRY CLEAN)",
+    "Name": "JUMPSUIT"
+  },
+  "34": {
+    "Code": "DC:KCM:KENTE CLOTH MEN",
+    "Name": "KENTE CLOTH (MEN)"
+  },
+  "35": {
+    "Code": "DC:KHKITRSR",
+    "Name": "KHAKI TROUSER (DRY CLEANING)"
+  },
+  "36": {
+    "Code": "DC:KS:KABA & SLIT",
+    "Name": "KABA & SLIT"
+  },
+  "37": {
+    "Code": "DC:KS2PC",
+    "Name": "SLIT & KABA 2PCs (DRY CLEANING)"
+  },
+  "38": {
+    "Code": "DC:LDIS2PCSUIT",
+    "Name": "LADIES 2PC SUIT (DRY CLEANING)"
+  },
+  "39": {
+    "Code": "DC:LNGDRS",
+    "Name": "LONG DRESS (DRY CLEANING)"
+  },
+  "40": {
+    "Code": "DC:LNSHRT",
+    "Name": "LINEN SHIRT (DRY CLEANING)"
+  },
+  "41": {
+    "Code": "DC:OVC",
+    "Name": "OVERCOAT (DRY CLEANING)"
+  },
+  "42": {
+    "Code": "DC:PLSUIT",
+    "Name": "POLITICAL SUIT (DRY CLEANING)"
+  },
+  "43": {
+    "Code": "DC:PLTDLNGDRSS",
+    "Name": "PLEATED LONG DRESS (DRY CLEANING)"
+  },
+  "44": {
+    "Code": "DC:POLO",
+    "Name": "POLO SHIRT (DRY CLEANING)"
+  },
+  "45": {
+    "Code": "DC:SCKS",
+    "Name": "SOCKS (DRY CLEANING)"
+  },
+  "46": {
+    "Code": "DC:SHIRT",
+    "Name": "SHIRT (DRY CLEANING)"
+  },
+  "47": {
+    "Code": "DC:SHORT",
+    "Name": "SHORTS (DRY CLEANING)"
+  },
+  "48": {
+    "Code": "DC:SHRTDRS",
+    "Name": "SHORT DRESS (DRY CLEANING)"
+  },
+  "49": {
+    "Code": "DC:SKRT",
+    "Name": "SKIRT (DRY CLEANING)"
+  },
+  "50": {
+    "Code": "DC:SLKSHRT",
+    "Name": "SILK SHIRT (DRY CLEANING)"
+  },
+  "51": {
+    "Code": "DC:SMCK",
+    "Name": "SMOCK (DRY CLEANING)"
+  },
+  "52": {
+    "Code": "DC:SNGLT",
+    "Name": "SINGLET (DRY CLEANING)"
+  },
+  "53": {
+    "Code": "DC:SUIT2PCS",
+    "Name": "SUIT 2PC (DRY CLEANING)"
+  },
+  "54": {
+    "Code": "DC:SUIT3PCS",
+    "Name": "SUIT 3PCs (DRY CLEANING)"
+  },
+  "55": {
+    "Code": "DC:TIES",
+    "Name": "TIES (DRY CLEANING)"
+  },
+  "56": {
+    "Code": "DC:TR",
+    "Name": "TROUSER (DRY CLEANING)"
+  },
+  "57": {
+    "Code": "DC:TSHIRT",
+    "Name": "T-SHIRT (DRY CLEANING)"
+  },
+  "58": {
+    "Code": "DC:VEST",
+    "Name": "VEST (DRY CLEANING)"
+  },
+  "59": {
+    "Code": "DC:WC (DRY CLEANING)",
+    "Name": "WINTER JACKET (DRY CLEANING)"
+  },
+  "60": {
+    "Code": "DC;WGU:WEDDING GOWN WITH VEIL",
+    "Name": "WEDDING GOWN WITH VEIL & UNDERSKIRT"
+  },
+  "67": {
+    "Code": "LD:",
+    "Name": "DINNER DRESS"
+  },
+  "68": {
+    "Code": "LD: SUIT VEST",
+    "Name": "SUIT VEST"
+  },
+  "69": {
+    "Code": "LD:3PCSLTKABA",
+    "Name": "SLIT & KABA 3PCs"
+  },
+  "70": {
+    "Code": "LD:APRON",
+    "Name": "APRON"
+  },
+  "71": {
+    "Code": "LD:BATH TOWELS",
+    "Name": "BATH TOWELS"
+  },
+  "72": {
+    "Code": "LD:BDSHT",
+    "Name": "BED SHEET (KING SIZE)"
+  },
+  "73": {
+    "Code": "LD:BDSHT(QN)",
+    "Name": "BED SHEET (QUEEN SIZE)"
+  },
+  "74": {
+    "Code": "LD:BDSHT(SM)",
+    "Name": "BED SHEET (SMALL SIZE)"
+  },
+  "75": {
+    "Code": "LD:BDSPRD",
+    "Name": "BEDSPREAD"
+  },
+  "76": {
+    "Code": "LD:BEDCOVER",
+    "Name": "BED COVER"
+  },
+  "77": {
+    "Code": "LD:BLANKET:BLANKET",
+    "Name": "BLANKET"
+  },
+  "78": {
+    "Code": "LD:BLSE",
+    "Name": "BLOUSE"
+  },
+  "79": {
+    "Code": "LD:BLSE:BLOUSE CAP",
+    "Name": "BLOUSE CAP"
+  },
+  "80": {
+    "Code": "LD:BLSE-SLK",
+    "Name": "BLOUSE SILK"
+  },
+  "81": {
+    "Code": "LD:BM: BATH MAT",
+    "Name": "BATH MAT"
+  },
+  "82": {
+    "Code": "LD:BXRS",
+    "Name": "BOXERS"
+  },
+  "83": {
+    "Code": "LD:CAFTAN",
+    "Name": "CAFTAN (2PCS)"
+  },
+  "84": {
+    "Code": "LD:CARPET:LG",
+    "Name": "CARPET (LARGE)",
+  },
+  "85": {
+    "Code": "LD:CARPET:SM",
+    "Name": "CARPET (SMALL)"
+  },
+  "86": {
+    "Code": "LD:CARPET:SMALL",
+    "Name": "CARPET (SMALL)"
+  },
+  "87": {
+    "Code": "LD:CC:CUSHION COVER",
+    "Name": "CUSHION COVER"
+  },
+  "88": {
+    "Code": "LD:CFT(KD)",
+    "Name": "CAFTAN (KIDS)"
+  },
+  "89": {
+    "Code": "LD:CFTP",
+    "Name": "CAFTAN TOP"
+  },
+  "90": {
+    "Code": "LD:CHILDJCKT",
+    "Name": "CHILD JACKET"
+  },
+  "91": {
+    "Code": "LD:CHLDDRS",
+    "Name": "CHILD DRESS"
+  },
+  "92": {
+    "Code": "LD:CHLDSHIRT",
+    "Name": "CHILD SHIRT"
+  },
+  "93": {
+    "Code": "LD:CHLDSHRT",
+    "Name": "CHILD SHORTS"
+  },
+  "94": {
+    "Code": "LD:CHLDSKRT",
+    "Name": "CHILD SKIRT"
+  },
+  "95": {
+    "Code": "LD:CHLDSUIT",
+    "Name": "CHILD SUIT"
+  },
+  "96": {
+    "Code": "LD:CHLDTRAD2PC",
+    "Name": "CHILD TRAD CLOTH 2PC"
+  },
+  "97": {
+    "Code": "LD:CHLDTRADCLTH",
+    "Name": "CHILD TRAD CLOTH 1PC"
+  },
+  "98": {
+    "Code": "LD:CHLDTSHRT",
+    "Name": "CHILD POLO / T-SHIRT"
+  },
+  "99": {
+    "Code": "LD:CLDTRSRS",
+    "Name": "CHLID TROUSER"
+  },
+  "100": {
+    "Code": "LD:CT:COAT",
+    "Name": "COAT"
+  },
+  "101": {
+    "Code": "LD:CURTN",
+    "Name": "CURTAIN"
+  },
+  "102": {
+    "Code": "LD:DV",
+    "Name": "DUVET (KING SIZE)"
+  },
+  "103": {
+    "Code": "LD:DV:QN",
+    "Name": "DUVET (QUEEN SIZE)"
+  },
+  "104": {
+    "Code": "LD:DV:SM",
+    "Name": "DUVET (SMALL SIZE)"
+  },
+  "105": {
+    "Code": "LD:DVC",
+    "Name": "DUVET COVER"
+  },
+  "106": {
+    "Code": "LD:FCT",
+    "Name": "FACE TOWEL"
+  },
+  "107": {
+    "Code": "LD:FLM",
+    "Name": "FLOOR MAT"
+  },
+  "108": {
+    "Code": "LD:FLOOR RUG",
+    "Name": "FLOOR RUG"
+  },
+  "109": {
+    "Code": "LD:FT:FLOOR TOWEL",
+    "Name": "FLOOR TOWEL"
+  },
+  "110": {
+    "Code": "LD:Jacket",
+    "Name": "JACKET"
+  },
+  "111": {
+    "Code": "LD:JMPSUIT",
+    "Name": "JUMPSUIT"
+  },
+  "112": {
+    "Code": "LD:JNS",
+    "Name": "JEANS"
+  },
+  "113": {
+    "Code": "LD:KENTE CLOTH",
+    "Name": "KENTE CLOTH"
+  },
+  "114": {
+    "Code": "LD:KHKTSR",
+    "Name": "KHAKI TROUSER"
+  },
+  "115": {
+    "Code": "LD:KLD:KENTE LONG DRESS",
+    "Name": "KENTE LONG DRESS"
+  },
+  "116": {
+    "Code": "LD:LABCOAT;LAB COAT",
+    "Name": "LAB COAT"
+  },
+  "117": {
+    "Code": "LD:LADIES:TROUSER",
+    "Name": "LADIES TROUSER"
+  },
+  "118": {
+    "Code": "LD:LDIES:2PCSUIT",
+    "Name": "LADIES 2 PCs SUIT"
+  },
+  "119": {
+    "Code": "LD:LGTOWEL",
+    "Name": "TOWEL (LARGE)"
+  },
+  "120": {
+    "Code": "LD:LNGDRSS",
+    "Name": "LONG DRESS"
+  },
+  "121": {
+    "Code": "LD:LNSHRT",
+    "Name": "LINEN SHIRT"
+  },
+  "122": {
+    "Code": "LD:MAT",
+    "Name": "MATTRESS COVER"
+  },
+  "123": {
+    "Code": "LD:NPKN",
+    "Name": "NAPKIN"
+  },
+  "124": {
+    "Code": "LD:PC",
+    "Name": "PILLOW CASE"
+  },
+  "125": {
+    "Code": "LD:PLSUIT",
+    "Name": "POLITICAL SUIT"
+  },
+  "126": {
+    "Code": "LD:PLTDLNGDRSS",
+    "Name": "PLEATED LONG SKIRT"
+  },
+  "127": {
+    "Code": "LD:POLO",
+    "Name": "POLO SHIRT"
+  },
+  "128": {
+    "Code": "LD:PULV",
+    "Name": "PULLOVER"
+  },
+  "129": {
+    "Code": "LD:SCALF",
+    "Name": "SCALF"
+  },
+  "130": {
+    "Code": "LD:SCKS",
+    "Name": "SOCKS"
+  },
+  "131": {
+    "Code": "LD:SHIRT",
+    "Name": "SHIRT"
+  },
+  "132": {
+    "Code": "LD:SHORTS",
+    "Name": "SHORTS"
+  },
+  "133": {
+    "Code": "LD:SHRTDRESS",
+    "Name": "SHORT DRESS"
+  },
+  "134": {
+    "Code": "LD:SKRT",
+    "Name": "SKIRT"
+  },
+  "135": {
+    "Code": "LD:SLKSHIRT",
+    "Name": "SILK SHIRT"
+  },
+  "136": {
+    "Code": "LD:SLTKABA",
+    "Name": "SLIT & KABA 2PCs"
+  },
+  "137": {
+    "Code": "LD:SMCK",
+    "Name": "SMOCK"
+  },
+  "138": {
+    "Code": "LD:SMTOWEL",
+    "Name": "TOWEL (SMALL)"
+  },
+  "139": {
+    "Code": "LD:SNEAKERS",
+    "Name": "SNEAKERS"
+  },
+  "140": {
+    "Code": "LD:SNGLT",
+    "Name": "SINGLET"
+  },
+  "141": {
+    "Code": "LD:SUIT2PC",
+    "Name": "2PC SUIT"
+  },
+  "142": {
+    "Code": "LD:TABLE CLOTH(LAUNDRY)",
+    "Name": "TABLE CLOTH"
+  },
+  "143": {
+    "Code": "LD:TIE:TIES(LAUNDRY)",
+    "Name": "TIE"
+  },
+  "144": {
+    "Code": "LD:Trouser",
+    "Name": "TROUSER"
+  },
+  "145": {
+    "Code": "LD:T-SHIRT",
+    "Name": "T-SHIRT"
+  },
+  "146": {
+    "Code": "LD:TWL(MD)",
+    "Name": "TOWEL (MEDIUM)"
+  },
+  "147": {
+    "Code": "LD:VEIL",
+    "Name": "VEIL"
+  },
+  "148": {
+    "Code": "LD:VEST",
+    "Name": "VEST",
+  },
+  "149": {
+    "Code": "LD:WG",
+    "Name": "WEDDING GOWN"
+  },
+  "150": {
+    "Code": "LD:WJ",
+    "Name": "WINTER JACKET"
+  },
+  "152": {
+    "Code": "PR:",
+    "Name": "SUIT(2PCs) Press Only"
+  },
+  "153": {
+    "Code": "PR: Press Only",
+    "Name": "SUIT (2pc)"
+  },
+  "154": {
+    "Code": "PR:BDCVR",
+    "Name": "BED COVER (PRESSING)"
+  },
+  "155": {
+    "Code": "PR:BDSHT",
+    "Name": "BEDSHEET (PRESSING)"
+  },
+  "156": {
+    "Code": "PR:BLANKET",
+    "Name": "BLANKET (PRESSING)"
+  },
+  "157": {
+    "Code": "PR:BLSE&SKRT:BLOUSE&SKIRT(PRES",
+    "Name": "BLOUSE AND SKIRT"
+  },
+  "158": {
+    "Code": "PR:BLSE:BLOUSE(PRESS ONLY)",
+    "Name": "BLOUSE"
+  },
+  "159": {
+    "Code": "PR:BOXER:BOXER(PRESS ONLY)",
+    "Name": "BOXER"
+  },
+  "160": {
+    "Code": "PR:CFTNTP",
+    "Name": "CAFTAN TOP (PRESSING)"
+  },
+  "161": {
+    "Code": "PR:DS:DRESS(PRESS ONLY)",
+    "Name": "DRESS"
+  },
+  "162": {
+    "Code": "PR:DVTCVR",
+    "Name": "DUVET COVER (PRESSING)"
+  },
+  "163": {
+    "Code": "PR:JNS",
+    "Name": "JEANS (PRESSING)"
+  },
+  "164": {
+    "Code": "PR:JS:JUMPSUIT(PRESS ONLY)",
+    "Name": "JUMPSUIT"
+  },
+  "165": {
+    "Code": "PR:KHKTRS",
+    "Name": "KHAKI TROUSER (PRESSING)"
+  },
+  "166": {
+    "Code": "PR:NW:NIGHT WEAR(PRESS ONLY)",
+    "Name": "NIGHT WEAR"
+  },
+  "167": {
+    "Code": "PR:PLCSE",
+    "Name": "PILLOW CASE (PRESSING)"
+  },
+  "168": {
+    "Code": "PR:SCALF:SCALF(PRESS ONLY)",
+    "Name": "SCALF"
+  },
+  "169": {
+    "Code": "PR:SHIRT",
+    "Name": "SHIRT (PRESSING)"
+  },
+  "170": {
+    "Code": "PR:SHORTS:SHORTS(PRESS ONLY)",
+    "Name": "SHORTS"
+  },
+  "171": {
+    "Code": "PR:SHTDRS",
+    "Name": "SHORT DRESS (PRESSING)",
+    "IsSold": "true",
+    "IsPurchased": "false"
+  },
+  "172": {
+    "Code": "PR:SKIRT:SKIRT(PRESS ONLY)",
+    "Name": "SKIRT"
+  },
+  "173": {
+    "Code": "PR:SMK:SMOCK(PRESS ONLY)",
+    "Name": "SMOCK"
+  },
+  "174": {
+    "Code": "PR:SMTOWEL:TOWEL(SMALL)",
+    "Name": "TOWEL (SMALL)"
+  },
+  "175": {
+    "Code": "PR:TP&SK:TOP&SKIRT(PRESS ONLY)",
+    "Name": "TOP&SKIRT",
+  },
+  "176": {
+    "Code": "PR:TRS",
+    "Name": "TROUSERS (PRESSING)"
+  },
+  "177": {
+    "Code": "PR:T-SHRT",
+    "Name": "T-SHIRT (PRESSING)"
+  },
+  "178": {
+    "Code": "S&H",
+    "Name": "SERVICE & HANDLING"
+  },
+  "179": {
+    "Code": "SC: STAFF CREDIT",
+    "Name": "STAFF CREDIT"
+  },
+  "180": {
+    "Code": "WASHFOLD(21kg)",
+    "Name": "WASH & FOLD 21KG"
+  },
+  "181": {
+    "Code": "WF:WASHFOLD(10>=12)",
+    "Name": "WASH & FOLD"
+  },
+  "182": {
+    "Code": "WF:WASHFOLD(1-5)",
+    "Name": "WASH & FOLD"
+  },
+  "183": {
+    "Code": "WF:WASHFOLD(5>=10)",
+    "Name": "WASH & FOLD"
+  },
+  "184": {
+    "Code": "WF:WASHFOLD(SANDALS)WASH&FOLD",
+    "Name": "SANDALS"
+  },
+  "185": {
+    "Code": "WF:WASHFOLD(SLIPPERS)WASH&FOLD",
+    "Name": "SLIPPERS"
+  },
+  "186": {
+    "Code": "WF:WASHFOLD(SNICKERS)WASH&FOLD",
+    "Name": "SNICKERS"
+  }
+}

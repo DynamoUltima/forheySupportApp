@@ -68,6 +68,8 @@ public class EditInventoryActivity extends AppCompatActivity {
     @Bind(R.id.textView7)
     TextView quantityText;
 
+
+
     public static Inventory item;
 
     String type="";
@@ -77,6 +79,7 @@ public class EditInventoryActivity extends AppCompatActivity {
     private List<CountryItem> countryList;
 
     AutoCompleteCountryAdapter adapter;
+    String amount;
 
 
     @Override
@@ -91,21 +94,24 @@ public class EditInventoryActivity extends AppCompatActivity {
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>
 //                (this,android.R.layout.simple_list_item_1,countryList);
 
-        adapter = new AutoCompleteCountryAdapter(this, countryList);
-        actGarment.setAdapter(adapter);
-        actGarment.setOnItemClickListener(onItemClickListener);
 
         fillCountryList();
 
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Updating Inventory..");
         progressDialog.setIndeterminate(false);
+
         progressDialog.setCancelable(false);
         rbWashFold.setChecked(true);
         btnSaveInv.setText("Update");
         type=item.getType();
         quantityText.setVisibility(View.GONE);
         edtQuantity.setVisibility(View.GONE);
+
+        adapter = new AutoCompleteCountryAdapter(this, countryList);
+        actGarment.setAdapter(adapter);
+        actGarment.setOnItemClickListener(onItemClickListener);
+
 
         actGarment.setText(item.getItem());
         edtQuantity.setText(item.getNoOfITems());
@@ -230,7 +236,7 @@ public class EditInventoryActivity extends AppCompatActivity {
                             if (!myWeight.isEmpty()) {
                                 if (weightValue < 5) {
                                     currentPrice = 45.0;
-                                    garmentPrice.setText(String.valueOf(currentPrice));
+                                    garmentPrice.setText("GH¢ "+String.valueOf(currentPrice));
 
                                 } else if (weightValue > 5 &&
                                         weightValue < 10) {
@@ -239,7 +245,7 @@ public class EditInventoryActivity extends AppCompatActivity {
                                 } else if (weightValue >= 10 &&
                                         weightValue <= 12) {
                                     currentPrice = 100.0;
-                                    garmentPrice.setText(String.valueOf(currentPrice));
+                                    garmentPrice.setText("GH¢"+String.valueOf(currentPrice));
                                 } else {
                                     edtWeight.setError("Enter Weight");
                                 }
@@ -337,9 +343,17 @@ public class EditInventoryActivity extends AppCompatActivity {
     }
 
     void updateItem(){
+
+        if (type.equals("Wash & Fold")) {
+            amount = edtWeight.getText().toString();
+            Toast.makeText(this, amount, Toast.LENGTH_SHORT).show();
+        } else {
+            amount = edtQuantity.getText().toString();
+            Toast.makeText(this, amount, Toast.LENGTH_SHORT).show();
+        }
         progressDialog.show();
         App.supportService.updateInventory(item.getId(),actGarment.getText().toString(),
-                edtQuantity.getText().toString(),type,"UpdateInventory").enqueue(new Callback<Inventory>() {
+                amount,type,"UpdateInventory", currentPrice).enqueue(new Callback<Inventory>() {
             @Override
             public void onResponse(Call<Inventory> call, Response<Inventory> response) {
                 progressDialog.dismiss();

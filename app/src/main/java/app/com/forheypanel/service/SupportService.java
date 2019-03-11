@@ -3,6 +3,7 @@ package app.com.forheypanel.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.com.forheypanel.activity.Invoicer;
 import app.com.forheypanel.model.Client;
 import app.com.forheypanel.model.HeyGirlOptions;
 import app.com.forheypanel.model.Inventory;
@@ -23,6 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -148,7 +150,7 @@ public interface SupportService  {
     @FormUrlEncoded
     @POST("forhey_mobile_scripts/clientInventory.php")
     Call<Inventory>updateInventory(@Field("id") int invId,@Field("item") String item,@Field("noOfItems") String no,
-                                   @Field("type") String type,@Field("tag") String tag);
+                                   @Field("type") String type,@Field("tag") String tag,@Field("price") double price);
 
     @FormUrlEncoded
     @POST("forhey_mobile_scripts/clientInventory.php")
@@ -171,8 +173,12 @@ public interface SupportService  {
     Call<InventorySummary> addWashNFold(@Field("tag") String tag,@Field("orderId") String orderId, @Field("weight") String weight);
 
 
-    @POST("forhey_mobile_scripts/clientInventory.php")
-    Call <InventoryList>sendInventory(@Field("orderId") String orderId,@Field("tag") String tag,@Field("clientInventory[]") ArrayList<Inventory> arrayList);
+//    @POST("support/public/api/orders/genInvoice")
+//    Call <InventoryList>sendInventory(@Field("orderId") String orderId,@Field("tag") String tag,@Field("clientInventory[]") ArrayList<Inventory> arrayList);
+
+
+    @POST("support/public/api/orders/genInvoice")
+    Call <Invoicer>sendInventory(@Body Invoicer invoicer);
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SupportService.forhey_domain)

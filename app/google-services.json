@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "792021149320",
+    "firebase_url": "https://forhey-support-app.firebaseio.com",
+    "project_id": "forhey-support-app",
+    "storage_bucket": "forhey-support-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792021149320:android:c84f774ef11b36b8",
+        "android_client_info": {
+          "package_name": "app.com.forheypanel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792021149320-fjmelcohdi2emmfieuppgbnuiinni451.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.com.forheypanel",
+            "certificate_hash": "958411d1c4fb6eef05ae73511e8d70016aaa8cd7"
+          }
+        },
+        {
+          "client_id": "792021149320-47qdobiujcnv74j4pvp465j3j3pdqkia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYWf9mkAfFAdjJVVE1qjPM458UIJENybw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792021149320-47qdobiujcnv74j4pvp465j3j3pdqkia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

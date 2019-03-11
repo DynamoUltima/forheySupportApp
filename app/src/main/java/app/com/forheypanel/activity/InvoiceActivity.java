@@ -10,10 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,8 +44,9 @@ public class InvoiceActivity extends AppCompatActivity {
     private LinearLayoutManager lLayout;
     InventoryAdapter2 adapter;
     ArrayList<Inventory> arrayList;
+    //  ArrayList<InvoiceList> arrayLister;
 
-    private TextView DateInvoice, InvoiceNo;
+    private TextView DateInvoice, InvoiceNo,price_total;
     private Button InvoiceSend;
 
 
@@ -53,11 +57,17 @@ public class InvoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice);
-
+        Gson gson = new Gson();
 
         recInVentory2 = findViewById(R.id.recInventoryCustom);
 
         InvoiceSend = findViewById(R.id.invoiceSent);
+
+        price_total = findViewById(R.id.price_total);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
+        int priceTotal =sharedPreferences.getInt("summer",0);
+
+
 
         lLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recInVentory2.setHasFixedSize(true);
@@ -67,6 +77,8 @@ public class InvoiceActivity extends AppCompatActivity {
         DateInvoice = findViewById(R.id.invoicedate);
         InvoiceNo = findViewById(R.id.invoiceNo);
         recInVentory2.setAdapter(adapter);
+
+
 
         InvoiceSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +92,17 @@ public class InvoiceActivity extends AppCompatActivity {
 
         loadInventory();
 
+
+        int sum = 0;
+        for (int i = 0; i < arrayList.size();  i++) {
+            Inventory inventory = arrayList.get(i);
+            int price = inventory.getPrice();
+            sum+= price;
+
+        }
+        price_total.setText(Integer.toString(sum));
     }
+
 
     private void openInvoiceDialog() {
         ExampleDialog invoiceDialog = new ExampleDialog();
@@ -114,6 +136,7 @@ public class InvoiceActivity extends AppCompatActivity {
 
 
     void loadInventory() {
+        final Gson gson = new Gson();
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
         String idOrder = sharedPreferences.getString("orderId", "");
@@ -141,6 +164,11 @@ public class InvoiceActivity extends AppCompatActivity {
                         if (response.body().clientInventory.size() > 0) {
                             adapter.updateList(response.body().clientInventory);
 
+//                            Invoicer invoicer = new Invoicer("dynamo","KJ10938",arrayList);
+//                            //App.supportService.sendInventory("1234456","good Stuff",arrayList);
+
+                            //  String json = gson.toJson(invoicer);
+
                         } else
                             Toast.makeText(InvoiceActivity.this, "No inventory found!", Toast.LENGTH_SHORT).show();
                     } else {
@@ -164,34 +192,28 @@ public class InvoiceActivity extends AppCompatActivity {
         });
     }
 
+
     private void postInvoice() {
+
+
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
         String idOrder = sharedPreferences.getString("orderId", "");
-        App.supportService.sendInventory(idOrder, "GetClientInventory",arrayList).enqueue(new Callback<InventoryList>() {
+
+        Invoicer invoicer = new Invoicer("dynamo", idOrder, arrayList);
+        App.supportService.sendInventory(invoicer).enqueue(new Callback<Invoicer>() {
             @Override
-            public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
+            public void onResponse(Call<Invoicer> call, Response<Invoicer> response) {
                 Log.d(TAG, response.toString());
                 //progressDialog.dismiss();
                 // swipeRefreshLayout.setRefreshing(false);
-                if (response.isSuccessful()) {
-                    if (response.body().success == 1) {
-                        if (response.body().clientInventory.size() > 0) {
-                            adapter.updateList(response.body().clientInventory);
 
 
-                        } else
-                            Toast.makeText(InvoiceActivity.this, "No inventory found!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(InvoiceActivity.this, "Failed to load Inventory", Toast.LENGTH_SHORT).show();
-                    }
-                    // Log.d(TAG,response.toString());
-                } else {
-                    Log.d(TAG, response.toString());
-                }
+                Toast.makeText(InvoiceActivity.this, "gone", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
-            public void onFailure(Call<InventoryList> call, Throwable t) {
+            public void onFailure(Call<Invoicer> call, Throwable t) {
                 //progressDialog.dismiss();
                 t.printStackTrace();
                 // Log.d(TAG,t.printStackTrace());

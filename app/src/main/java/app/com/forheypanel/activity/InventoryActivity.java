@@ -80,7 +80,7 @@ public class InventoryActivity extends AppCompatActivity {
 
     private List<CountryItem> countryList;
     AutoCompleteCountryAdapter adapter;
-
+    private List<ItemCode> codeList;
 
 
     @Override
@@ -190,14 +190,14 @@ public class InventoryActivity extends AppCompatActivity {
                         //edtQuantity.addTextChangedListener();
                         if (!myQuantity.isEmpty()) {
                             currentPrice = adapter.getItem(i).getDryCleaning() * Double.parseDouble(edtQuantity.getText().toString());
-                            garmentPrice.setText("GH¢"+String.valueOf(currentPrice));
+                            garmentPrice.setText("GH¢ " + String.valueOf(currentPrice));
                         } else {
                             edtQuantity.setError("Enter Quantity");
                         }
                     } else if (type.equals("Press Only")) {
                         if (!myQuantity.isEmpty()) {
                             currentPrice = adapter.getItem(i).getPressOnly() * Double.parseDouble(edtQuantity.getText().toString());
-                            garmentPrice.setText("GH¢ "+String.valueOf(currentPrice));
+                            garmentPrice.setText("GH¢ " + String.valueOf(currentPrice));
                         } else {
                             edtQuantity.setError("Enter Quantity");
                         }
@@ -205,7 +205,7 @@ public class InventoryActivity extends AppCompatActivity {
                     } else if (type.equals("Laundry")) {
                         if (!myQuantity.isEmpty()) {
                             currentPrice = adapter.getItem(i).getLaundry() * Double.parseDouble(edtQuantity.getText().toString());
-                            garmentPrice.setText("GH¢"+String.valueOf(currentPrice));
+                            garmentPrice.setText("GH¢ " + String.valueOf(currentPrice));
                         } else {
                             edtQuantity.setError("Enter Quantity");
                         }
@@ -213,33 +213,33 @@ public class InventoryActivity extends AppCompatActivity {
                     } else if (type.equals("Wash & Fold")) {
                         final String et = edtWeight.getText().toString();
 
-                                try {
-                                    //double weightValue = Double.parseDouble(et);
-                                    Integer weightValue = Integer.parseInt(et);
+                        try {
+                            //double weightValue = Double.parseDouble(et);
+                            Integer weightValue = Integer.parseInt(et);
 
 
-                                    if (!myWeight.isEmpty()) {
-                                        if (weightValue < 5) {
-                                            currentPrice = 45.0;
-                                            garmentPrice.setText(String.valueOf(currentPrice));
+                            if (!myWeight.isEmpty()) {
+                                if (weightValue < 5) {
+                                    currentPrice = 45.0;
+                                    garmentPrice.setText("GH¢ " + String.valueOf(currentPrice));
 
-                                        } else if (weightValue > 5 &&
-                                                weightValue < 10) {
-                                            currentPrice = 75.0;
-                                            garmentPrice.setText(String.valueOf(currentPrice));
-                                        } else if (weightValue >= 10 &&
-                                                weightValue <= 12) {
-                                            currentPrice = 100.0;
-                                            garmentPrice.setText(String.valueOf(currentPrice));
-                                        } else {
-                                            edtWeight.setError("Enter Weight");
-                                        }
-                                    }
-
-                                } catch (NumberFormatException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(InventoryActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                } else if (weightValue > 5 &&
+                                        weightValue < 10) {
+                                    currentPrice = 75.0;
+                                    garmentPrice.setText(String.valueOf(currentPrice));
+                                } else if (weightValue >= 10 &&
+                                        weightValue <= 12) {
+                                    currentPrice = 100.0;
+                                    garmentPrice.setText(String.valueOf(currentPrice));
+                                } else {
+                                    edtWeight.setError("Enter Weight");
                                 }
+                            }
+
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                            Toast.makeText(InventoryActivity.this, "error", Toast.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -282,6 +282,11 @@ public class InventoryActivity extends AppCompatActivity {
 
                     }
                 };
+    }
+
+    private void fillCodeList(){
+        codeList = new ArrayList<>();
+        codeList.add(new ItemCode("","","",""));
     }
 
     private void fillCountryList() {
