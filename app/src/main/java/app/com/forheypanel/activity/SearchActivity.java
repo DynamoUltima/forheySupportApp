@@ -653,6 +653,7 @@ public class SearchActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putString("orderDate",order.pickup_date);
                                 editor.putString("orderTime",order.pick_from_time);
+                                editor.putString("orderNote",order.note);
                                 editor.commit();
 
 

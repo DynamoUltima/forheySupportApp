@@ -163,9 +163,14 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <service android:name=".service.FirebaseService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <service android:name=".alarmSettings.SchedulingService" />
-        <service android:name=".tools.GcmIntentService" />
+        <!--<service android:name=".tools.GcmIntentService" />-->
 
         <meta-data
             android:name="io.fabric.ApiKey"

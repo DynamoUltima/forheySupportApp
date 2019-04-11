@@ -76,6 +76,7 @@ dependencies {
         transitive = true;
     }
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 //    implementation 'com.squareup.okio:okio:1.13.0'
 //    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.7.5'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.9.0'

@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +35,34 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
     String TAG = getClass().getName();
     InvoiceActivity invLAct;
 
+    AdapterCallback mAdapterCallback;
+
+
+
+    public void onAttach(Context context) {
+
+    }
+
+    private AdapterView.OnItemClickListener mListener;
+    //private View.OnClickListener mOnItemClickListener;
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_layout, parent, false);
         return new InventoryAdapter2.ViewHolder(itemView);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public static interface AdapterCallback {
+        void onMethodCallback(int sum,int sumItems,String itemGarment,String itemCode,String itemQuantity,String typeOfService);
+    }
+
+    public void setOnItemClickListener( AdapterView.OnItemClickListener listener) {
+        mListener = listener;
+    }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Inventory inventory = itemList.get(position);
@@ -47,21 +71,35 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
         holder.tvService.setText(inventory.getType());
         holder.tvPrice.setText("₵" + inventory.getPrice() + ".0");
 
+
+
+
         int sum = 0;
+        int sumItems=0;
         for (int i = 0; i < itemList.size(); i++) {
             Inventory list = itemList.get(i);
             int price = list.getPrice();
+//            int noITems= Integer.parseInt(list.getNoOfITems());
             sum+= price;
+//            sumItems+=noITems;
 
         }
-        Toast.makeText(context,String.valueOf(sum) , Toast.LENGTH_SHORT).show();
-        SharedPreferences sharedPreferences = context.getSharedPreferences("com.forheypanel", context.MODE_PRIVATE);
-        SharedPreferences.Editor editor =sharedPreferences.edit();
-        editor.putFloat("summer",sum);
+        sumItems = itemList.size();
+
+        String itemGarment = inventory.getItem();
+        String itemCode= inventory.getItemCode();
+        String itemQuantity = inventory.getNoOfITems();
+        String typeOfService = inventory.getType();
+
+        mAdapterCallback.onMethodCallback(sum,sumItems,itemGarment,itemCode,itemQuantity,typeOfService);
 
 
 
-        // String pricer = inventory.getPrice();
+
+
+
+
+
 
         switch (inventory.getType()) {
             case "Wash & Fold":
@@ -128,6 +166,23 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
             tvQty = (TextView) itemView.findViewById(R.id.tvQty2);
             tvService = (TextView) itemView.findViewById(R.id.tvService2);
             tvPrice = itemView.findViewById(R.id.invoice_price);
+
+            int position = getAdapterPosition();
+
+//            int sum = 0;
+//            int sumItems=0;
+//            for (int i = 0; i < itemList.size(); i++) {
+//                Inventory list = itemList.get(i);
+//                int price = list.getPrice();
+//                int noITems= Integer.parseInt(list.getNoOfITems());
+//                sum+= price;
+//                sumItems+=noITems;
+//
+//            }
+//
+//            mAdapterCallback.onMethodCallback(sum,sumItems);
+
+
         }
     }
 
@@ -135,6 +190,12 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
         this.itemList = itemList;
         this.context = context;
         this.invLAct = invLAct;
+
+        try {
+            this.mAdapterCallback = ((AdapterCallback) context);
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement AdapterCallback.");
+        }
     }
 }
 

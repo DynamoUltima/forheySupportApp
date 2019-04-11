@@ -1,14 +1,14 @@
 {
   "8": {
-    "Code": "DC: LADIES JACKET",
+    "Code": "DC:LADIES JACKET",
     "Name": "LADIES JACKET (DRY CLEANING)"
   },
   "9": {
-    "Code": "DC: OVC",
+    "Code": "DC:OVC",
     "Name": "OVERCOAT (DRY CLEANING)"
   },
   "10": {
-    "Code": "DC: PILLOW",
+    "Code": "DC:PILLOW",
     "Name": "PILLOW (DRY CLEAN)"
   },
   "11": {
@@ -689,4 +689,26 @@
     "Code": "WF:WASHFOLD(SNICKERS)WASH&FOLD",
     "Name": "SNICKERS"
   }
+}
+
+
+{
+  "total_num_of_items":2,
+  "order_id":"TH01312323",
+  "total_cost":"7",
+  "promo":"heytuesday",
+  "items": [
+    {
+      "item":"shots",
+      "quantity":8,
+      "type_of_service":"dry cleaning",
+      "itemCode:"PD:LD"
+    },
+    {
+      "item": "shirt",
+      "quantity": 8,
+      "type_of_service": "dry cleaning",
+      "itemCode:"PD:LD"
+    }
+  ]
 }

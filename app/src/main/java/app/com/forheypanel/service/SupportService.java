@@ -35,9 +35,10 @@ import retrofit2.http.Query;
  * Created by nayram on 11/17/15.
  */
 public interface SupportService  {
-
+//https://support.forhey.com/api/orders/genInvoice
     public static final String domain = "http://www.forhey.com/";
     public static final String forhey_domain = "https://forhey.com/";
+    public static final String domain_forhey="https://support.forhey.com/";
 
      String prefix="forhey_mobile_scripts";
 
@@ -145,12 +146,12 @@ public interface SupportService  {
     @POST("forhey_mobile_scripts/clientInventory.php")
     Call <Inventory>addInventory (@Field("orderId") String orderId,
                                      @Field("item") String item, @Field("noOfItems") String number,
-                                     @Field("type") String type,@Field("tag") String tag,@Field("price") double price);
+                                     @Field("type") String type,@Field("tag") String tag,@Field("price") double price,@Field("itemCode")String itemCode);
 
     @FormUrlEncoded
     @POST("forhey_mobile_scripts/clientInventory.php")
     Call<Inventory>updateInventory(@Field("id") int invId,@Field("item") String item,@Field("noOfItems") String no,
-                                   @Field("type") String type,@Field("tag") String tag,@Field("price") double price);
+                                   @Field("type") String type,@Field("tag") String tag,@Field("price") double price,@Field("itemCode")String itemCode);
 
     @FormUrlEncoded
     @POST("forhey_mobile_scripts/clientInventory.php")
@@ -176,9 +177,11 @@ public interface SupportService  {
 //    @POST("support/public/api/orders/genInvoice")
 //    Call <InventoryList>sendInventory(@Field("orderId") String orderId,@Field("tag") String tag,@Field("clientInventory[]") ArrayList<Inventory> arrayList);
 
+//
+//    @POST("api/orders/genInvoice")
+//    Call <Invoicer>sendInventory(@Query("total_num_of_items")String noOfItems, @Query("promo")String promo,@Query("order_id") String order_id,@Query("total_cost")double total_cost,@Query("items[]")ArrayList<Inventory> clientInventory);
 
-    @POST("support/public/api/orders/genInvoice")
-    Call <Invoicer>sendInventory(@Body Invoicer invoicer);
+
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SupportService.forhey_domain)

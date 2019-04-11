@@ -1,0 +1,44 @@
+Invoicer{
+  noOfItems=
+  '28',
+  order_id=
+  'TH01312323',
+  promo=
+  '',
+  total_cost=839.0,
+  items=[
+  GarmentItems
+  {
+    item=
+    'Linen Shirt',
+    quantity=
+    '6',
+    type_of_Service=
+    'Laundry',
+    itemCode=
+    'PR:TRS'
+  },
+
+  {
+    item=
+    'Shorts',
+    quantity=
+    '8',
+    type_of_Service=
+    'Laundry',
+    itemCode=
+    'PR:TRS'
+  },
+  GarmentItems
+  {
+    item=
+    'Shirt',
+    quantity=
+    '7',
+    type_of_Service=
+    'Wash & Fold',
+    itemCode=
+    'PR:TRS'
+  }
+], message='null', success='null'
+}

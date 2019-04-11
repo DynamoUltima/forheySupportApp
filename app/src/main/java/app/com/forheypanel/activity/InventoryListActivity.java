@@ -121,7 +121,8 @@ public class InventoryListActivity extends AppCompatActivity {
         App.supportService.getInventory(orderId,"GetClientInventory").enqueue(new Callback<InventoryList>() {
             @Override
             public void onResponse(Call<InventoryList> call, Response<InventoryList> response) {
-                Log.d(TAG,response.toString());
+                Log.d("inventory",response.toString());
+                Log.d("inventorybody",response.body().toString());
                 //progressDialog.dismiss();
                 swipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()){

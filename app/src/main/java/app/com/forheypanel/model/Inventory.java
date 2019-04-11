@@ -6,10 +6,22 @@ package app.com.forheypanel.model;
 
 public class Inventory {
 
-    String item,noOfItems,type;
+    String item, noOfItems, type;
+
     String no_of_items;
     int id;
-   int price;
+    int price;
+    String itemCode;
+
+
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
 
     public int getPrice() {
         return price;
@@ -32,8 +44,8 @@ public class Inventory {
     }
 
     public String getNoOfITems() {
-        if (noOfItems !=null && !noOfItems.isEmpty())
-        return noOfItems;
+        if (noOfItems != null && !noOfItems.isEmpty())
+            return noOfItems;
         else return no_of_items;
     }
 
