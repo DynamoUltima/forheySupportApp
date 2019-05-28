@@ -277,7 +277,7 @@ public class InventoryActivity extends AppCompatActivity {
 //
 
 
-    private void fillCountryList() {
+    public void fillCountryList() {
         countryList = new ArrayList<>();
         countryList.add(new CountryItem("Shirt", 7.00, 12.00, 5.00, "DC:SHIRT", "LD:SHIRT", "PR:SHIRT"));
         countryList.add(new CountryItem("T-Shirt", 5.00, 7.00, 3.00, "DC:TSHIRT", "LD:T-SHIRT", "PR:T-SHRT"));
@@ -394,9 +394,9 @@ public class InventoryActivity extends AppCompatActivity {
 
 
         progressDialog.show();
-       double finalPrice= (currentPrice+ServiceHandling)*0.1825;
+      // double finalPrice= (currentPrice+ServiceHandling)*0.1825;
         App.supportService.addInventory(orderId, actGarment.getText().toString(), amount,
-                type, "AddInventory", finalPrice, currentCode).enqueue(new Callback<Inventory>() {
+                type, "AddInventory",currentPrice, currentCode).enqueue(new Callback<Inventory>() {
             @Override
             public void onResponse(Call<Inventory> call, Response<Inventory> response) {
                 progressDialog.dismiss();

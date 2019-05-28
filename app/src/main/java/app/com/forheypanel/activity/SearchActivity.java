@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -18,12 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -122,6 +125,7 @@ public class SearchActivity extends AppCompatActivity {
     String orderId,orderState="0",medium;
     RatingBar ratingBar;
     Button invoiceButton;
+    Switch paySwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +169,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
        invoiceButton = findViewById(R.id.invoice_transfer);
+       paySwitch = findViewById(R.id.paySwitch1);
 
         LayoutInflater mInflater = (LayoutInflater)
                 this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
@@ -204,6 +209,25 @@ public class SearchActivity extends AppCompatActivity {
                 new ConfirmPayment(bookingFee,totalCost,serviceCost,promotionValue).execute();
             }
         });
+
+
+
+        paySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (b){
+                    paySwitch.setText("PAID");
+                    paySwitch.setTextColor(Color.BLUE);
+                }else{
+                    paySwitch.setText("NOT PAID");
+                    paySwitch.setTextColor(Color.RED);
+
+                }
+            }
+        });
+
+
 
 
         pDialog=new ProgressDialog(this);

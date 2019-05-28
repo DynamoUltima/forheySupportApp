@@ -61,6 +61,7 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
     ArrayList<InvoicerList> arrayInvoice;
     //  ArrayList<InvoiceList> arrayLister;
 
+
     private TextView DateInvoice, InvoiceNo, price_total;
     private Button InvoiceSend;
 
@@ -68,7 +69,6 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
     String TAG = getClass().getName();
 
     InventoryAdapter2.AdapterCallback adapterCallback;
-
 
 
     @Override
@@ -104,6 +104,9 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
 
 
     }
+
+
+
 //    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
 //        @Override
 //        public void onClick(View view) {
@@ -120,20 +123,20 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
 //        }
 //    };
 
-    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            int sum = 0;
-            for (i = 0; i < arrayList.size(); i++) {
-                Inventory inventory = arrayList.get(i);
-                int price = inventory.getPrice();
-                sum += price;
-
-            }
-            Toast.makeText(InvoiceActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
-            price_total.setText(Integer.toString(sum));
-        }
-    };
+//    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+//        @Override
+//        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//            int sum = 0;
+//            for (i = 0; i < arrayList.size(); i++) {
+//                Inventory inventory = arrayList.get(i);
+//                int price =Integer.parseInt(inventory.getPrice());
+//                sum +=price;
+//
+//            }
+//            Toast.makeText(InvoiceActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+//            price_total.setText(Integer.toString(sum));
+//        }
+//    };
 
 
     private void openInvoiceDialog() {
@@ -169,6 +172,7 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
 
     void loadInventory() {
         final Gson gson = new Gson();
+
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.forheypanel", MODE_PRIVATE);
         String idOrder = sharedPreferences.getString("orderId", "");
@@ -242,7 +246,7 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClientBuilder.addInterceptor(logging);
 
-                Retrofit.Builder builder = new Retrofit.Builder()
+        Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://support.forhey.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClientBuilder.build());
@@ -250,7 +254,7 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
         Retrofit retrofit = builder.build();
         final SupportApiService supportApiService = retrofit.create(SupportApiService.class);
 
-        price_total.setText("₵" + String.valueOf(sum) + ".0");
+        price_total.setText("₵" + sum + ".0");
 
         InvoiceSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,14 +288,20 @@ public class InvoiceActivity extends AppCompatActivity implements InventoryAdapt
                 ArrayList<GarmentItems> garmentItems = new ArrayList<>();
 
                 for (int i = 0; i < arrayList.size() - 1; i++) {
-                    garmentItems.add(new GarmentItems(arrayList.get(i).getItem(), Integer.parseInt(arrayList.get(i).getNoOfITems()), arrayList.get(i).getType(), arrayList.get(i).getItemCode()));
+
+                    garmentItems.add(new GarmentItems(
+                            arrayList.get(i).getItem()
+                            , Integer.parseInt(arrayList.get(i).getNoOfITems())
+                            , arrayList.get(i).getType()
+                            , arrayList.get(i).getItemCode())
+                    );
                 }
 
                 //Invoicer.GarmentItems g = (Invoicer.GarmentItems) itr.next();
                 // System.out.println(st.rollno + " " + st.name + " " + st.age);+++
 
 
-                 Invoicer invoicer = new Invoicer("2",idOrder,cost_total,promoCode,garmentItems);
+                Invoicer invoicer = new Invoicer("2", idOrder, cost_total, promoCode, garmentItems);
 // App.supportApiService.sendInventory(sumItems,idOrder,cost_total,promoCode,garmentItems)
                 // gson.toJson(invoicer)
                 // Log.d(TAG, "DataToServer: "+ invoicer.toString());

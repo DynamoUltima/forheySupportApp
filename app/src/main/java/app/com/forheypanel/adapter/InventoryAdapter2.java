@@ -78,7 +78,7 @@ public class InventoryAdapter2 extends RecyclerView.Adapter<InventoryAdapter2.Vi
         int sumItems=0;
         for (int i = 0; i < itemList.size(); i++) {
             Inventory list = itemList.get(i);
-            int price = list.getPrice();
+           double price = Double.parseDouble(list.getPrice());
 //            int noITems= Integer.parseInt(list.getNoOfITems());
             sum+= price;
 //            sumItems+=noITems;

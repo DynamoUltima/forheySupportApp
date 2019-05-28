@@ -10,7 +10,7 @@ public class Inventory {
 
     String no_of_items;
     int id;
-    int price;
+    String price;
     String itemCode;
 
 
@@ -23,11 +23,11 @@ public class Inventory {
         this.itemCode = itemCode;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
