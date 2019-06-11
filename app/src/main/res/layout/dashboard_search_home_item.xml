@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:layout_weight="2"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/cast_expanded_controller_background_color"/>
+            style="@style/TextAppearance.AppCompat.Title"/>
+            <!--android:textColor="@color/cast_expanded_controller_background_color"/>-->
 
         <TextView
             android:id="@+id/tvDate"

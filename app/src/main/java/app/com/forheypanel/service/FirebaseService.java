@@ -5,13 +5,12 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.NonNull;
+
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -51,7 +50,7 @@ public class FirebaseService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
         notificationBuilder.setAutoCancel(true)
-                .setSmallIcon(R.drawable.cast_ic_notification_on)
+                .setSmallIcon(R.drawable.ic_annoucement)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentInfo("Info");
@@ -80,7 +79,7 @@ public class FirebaseService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
         notificationBuilder.setAutoCancel(true)
-                .setSmallIcon(R.drawable.cast_ic_notification_on)
+                .setSmallIcon(R.drawable.ic_annoucement)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentInfo("Info");
@@ -116,7 +115,7 @@ public class FirebaseService extends FirebaseMessagingService {
 //    @Override
 //    public void onNewToken(String token) {
 //
-////        token = FirebaseInstanceId.getInstance().getToken();
+//       token = String.valueOf(FirebaseInstanceId.getInstance().getInstanceId());
 //        Log.d("tokenizer", "Refreshed token: " + token);
 //
 //        // If you want to send messages to this application instance or

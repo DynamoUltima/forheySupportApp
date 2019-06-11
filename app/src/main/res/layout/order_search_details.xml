@@ -301,26 +301,26 @@
                 android:text="Payment Status: "
                 android:textSize="17dp"
                 android:typeface="sans" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/tv_payment_status"
-                android:textSize="17dp"
-                android:typeface="sans"
-                android:gravity="left|center"
-                android:text="NOT PAID"
-                android:textColor="@color/blue"
-                android:layout_marginRight="3dp"/>
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="3"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                <!--android:id="@+id/tv_payment_status"-->
+                <!--android:textSize="17dp"-->
+                <!--android:typeface="sans"-->
+                <!--android:gravity="left|center"-->
+                <!--android:text="NOT PAID"-->
+                <!--android:textColor="@color/blue"-->
+                <!--android:layout_marginRight="3dp"/>-->
 
-            <Switch
-                android:id="@+id/paySwitch1"
+            <Spinner
+                android:id="@+id/spinner_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Not Paid"
-                android:checked="false"/>
+                android:padding="4dp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -636,6 +636,8 @@
         </LinearLayout>
     </LinearLayout>
     </ScrollView>
+
+
 
 
 </LinearLayout>

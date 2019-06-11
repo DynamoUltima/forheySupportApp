@@ -192,26 +192,26 @@ public class ActivityClient extends BaseActivity{
             });
 
 
-            btnMap.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (lat != null && lat.isEmpty() && lng != null && !lng.isEmpty()) {
-                        if (!lat.contains("0.0") && !lng.contains("0.0")) {
-                            Intent intent = new Intent(ActivityClient.this, GoogleMapLoc.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putDouble("latitude", Double.parseDouble(lat));
-                            bundle.putDouble("longitude", Double.parseDouble(lng));
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-
-                        } else {
-                            Toast.makeText(ActivityClient.this, "Coordinates not provided ", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(ActivityClient.this, "Coordinates not provided ", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//            btnMap.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (lat != null && lat.isEmpty() && lng != null && !lng.isEmpty()) {
+//                        if (!lat.contains("0.0") && !lng.contains("0.0")) {
+//                            Intent intent = new Intent(ActivityClient.this, GoogleMapLoc.class);
+//                            Bundle bundle = new Bundle();
+//                            bundle.putDouble("latitude", Double.parseDouble(lat));
+//                            bundle.putDouble("longitude", Double.parseDouble(lng));
+//                            intent.putExtras(bundle);
+//                            startActivity(intent);
+//
+//                        } else {
+//                            Toast.makeText(ActivityClient.this, "Coordinates not provided ", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        Toast.makeText(ActivityClient.this, "Coordinates not provided ", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
         }
 
         swAddress.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {

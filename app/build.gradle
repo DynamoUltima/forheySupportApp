@@ -54,7 +54,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.google.android.gms:play-services:12.0.1'
+    //implementation 'com.google.android.gms:play-services:12.0.1'
     implementation project(':library')
     implementation 'me.drakeet.materialdialog:library:1.2.2'
     implementation 'it.neokree:MaterialTabs:0.11'
@@ -63,8 +63,12 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.jakewharton:butterknife:7.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.google.firebase:firebase-messaging:11.8.0'
-    implementation 'com.google.firebase:firebase-core:11.8.0'
+//    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+//    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     //implementation 'com.squareup.retrofit:retrofit:1.8.0'
 //    implementation project(':blurredgridmenu')
@@ -86,6 +90,25 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //
+    //gcm
+    implementation "com.google.android.gms:play-services-gcm:16.0.0"
+
+    //Google Play Services for Maps
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+
+    // Google play services for location information
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+
+    //Google maps utils for clustering
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+
+    //Google Directions Api
+    implementation 'com.google.maps:google-maps-services:0.2.11'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+
+
 
 //    implementation 'com.google.code.gson:gson:2.4'
 //    implementation 'org.parceler:parceler:0.2.13'

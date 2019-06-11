@@ -1,18 +1,48 @@
 package app.com.forheypanel.activity;
 
+import android.Manifest;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -29,6 +59,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import app.com.forheypanel.model.User;
+import app.com.forheypanel.model.UserClient;
+import app.com.forheypanel.model.UserLocation;
+import app.com.forheypanel.service.LocationService;
 import app.com.forheypanel.service.SupportService;
 import app.com.forheypanel.tools.ConnectionDetector;
 import app.com.forheypanel.tools.JSONParser;
@@ -36,29 +76,63 @@ import app.com.forheypanel.model.OrderDataModel;
 import app.com.forheypanel.adapter.OrderlistAdater;
 import app.com.forheypanel.R;
 
+import static app.com.forheypanel.model.Constants.ERROR_DIALOG_REQUEST;
+import static app.com.forheypanel.model.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+import static app.com.forheypanel.model.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
+
 
 public class MainActivity extends BaseActivity {
    private ListView listView;
     private ArrayList<OrderDataModel>dataModels;
     SharedPreferences mprefs;
     ProgressDialog pDialog;
+
+    //vars
+    private FirebaseFirestore mDb;
+
+    private static final String TAG = "MainActivity";
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView=(ListView)findViewById(R.id.listView);
-        pDialog=new ProgressDialog(MainActivity.this);
+
+        mDb = FirebaseFirestore.getInstance();
+
+
+        // mDb = FirebaseFirestore.getInstance();
+
+//        registerNewEmail("dynamo.joey@gmail.com", "password");
+
+        Log.d("FCM-Test", "Token" + FirebaseInstanceId.getInstance().getToken());
+
+        Log.d("FCM-Test", "TokenID" + FirebaseInstanceId.getInstance().getInstanceId());
+
+
+        listView = (ListView) findViewById(R.id.listView);
+        pDialog = new ProgressDialog(MainActivity.this);
         mprefs = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
-        ConnectionDetector conection=new ConnectionDetector(this);
-        if (conection.isConnectingToInternet()){
-         //   new RegisterTask(this).execute();
+        ConnectionDetector conection = new ConnectionDetector(this);
+        if (conection.isConnectingToInternet()) {
+            //   new RegisterTask(this).execute();
             new loadOrderTask().execute();
-        }else{
+        } else {
             logItem("Please check your internet connection");
         }
-
+        Toast.makeText(this, "MainAct", Toast.LENGTH_SHORT).show();
 
     }
+
+
+    //Experiments
+
+
+
+
 
 
     @Override

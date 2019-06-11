@@ -1,15 +1,25 @@
 package app.com.forheypanel.activity;
 
 
+import android.Manifest;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +27,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,10 +38,25 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
@@ -47,12 +74,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import app.com.forheypanel.fragment.ExampleBottomDialogSheetDialog;
 import app.com.forheypanel.model.Facility;
 import app.com.forheypanel.model.HeyGirlOptions;
 import app.com.forheypanel.model.IdvOrder;
 import app.com.forheypanel.model.InventorySummary;
 import app.com.forheypanel.model.OrderBill;
 import app.com.forheypanel.model.OrderList;
+import app.com.forheypanel.model.PaymentResult;
+import app.com.forheypanel.model.Results;
+import app.com.forheypanel.model.User;
+import app.com.forheypanel.model.UserClient;
+import app.com.forheypanel.model.UserLocation;
+import app.com.forheypanel.service.LocationService;
 import app.com.forheypanel.service.SupportService;
 import app.com.forheypanel.tools.App;
 import app.com.forheypanel.tools.ConnectionDetector;
@@ -65,13 +99,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static app.com.forheypanel.model.Constants.ERROR_DIALOG_REQUEST;
+import static app.com.forheypanel.model.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+import static app.com.forheypanel.model.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
+
 
 /**
  * Created by nayram on 3/10/15.
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, ExampleBottomDialogSheetDialog.BottomSheetListener {
 
     SharedPreferences sp;
+
+    //vars
+    private FirebaseFirestore mDb;
+
+    //Firebase
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private boolean mLocationPermissionGranted = false;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private UserLocation mUserLocation;
+
 
 //    @Bind(R.id.invoice_transfer)
 //    Button invoiceButton;
@@ -131,6 +180,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_search_details);
+
+        setupFirebaseAuth();
         tvPickupDate=(TextView)findViewById(R.id.tvPickupDate);
         tvPickupTime=(TextView)findViewById(R.id.tvPickupTime);
         tvDeliveryDate=(TextView)findViewById(R.id.tvDeliveryDate);
@@ -160,7 +211,7 @@ public class SearchActivity extends AppCompatActivity {
         tvCancelComment=(TextView)findViewById(R.id.tvCancelComment);
         tvFacAssign=(TextView)findViewById(R.id.tvAssignedFac);
         tvServiceType=(TextView)findViewById(R.id.tvServiceType);
-        tvPaymentStatus=(TextView)findViewById(R.id.tv_payment_status);
+       // tvPaymentStatus=(TextView)findViewById(R.id.tv_payment_status);
         tvWeight=(TextView)findViewById(R.id.tvWeight);
         tvNumOfItems=(TextView)findViewById(R.id.tvNumOfItems);
         paymentDialog=new MaterialDialog(this);
@@ -169,7 +220,16 @@ public class SearchActivity extends AppCompatActivity {
 
 
        invoiceButton = findViewById(R.id.invoice_transfer);
-       paySwitch = findViewById(R.id.paySwitch1);
+        Spinner spinner = findViewById(R.id.spinner_pay);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.payment_state, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+
+
 
         LayoutInflater mInflater = (LayoutInflater)
                 this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
@@ -183,6 +243,8 @@ public class SearchActivity extends AppCompatActivity {
 
         addressDialog.setView(addressView);
         paymentDialog.setView(paymentView);
+
+
 
 
         etAmount=(EditText)paymentView.findViewById(R.id.etAmount);
@@ -211,21 +273,60 @@ public class SearchActivity extends AppCompatActivity {
         });
 
 
+        //Experiments
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        paySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//        App.supportService.updateOrderStatus( "updateStatus", orderId, String.valueOf(state),
+//                medium, "true", phone)
+//                .enqueue(new Callback<Results>() {
+//                    @Override
+//                    public void onResponse(Call<Results> call, Response<Results> response) {
+//                        pDialog.hide();
+//                       // tvOrderStatus.setText(order);
+//                        Toast.makeText(SearchActivity.this, "Status changed successfully", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Results> call, Throwable t) {
+//                        pDialog.hide();
+//                        Toast.makeText(SearchActivity.this, "Failed to change status", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                });
 
-                if (b){
-                    paySwitch.setText("PAID");
-                    paySwitch.setTextColor(Color.BLUE);
-                }else{
-                    paySwitch.setText("NOT PAID");
-                    paySwitch.setTextColor(Color.RED);
 
-                }
-            }
-        });
+
+
+
+
+
+
+
+
+
+
+
+//        paySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//
+//                if (b){
+//                    paySwitch.setText("PAID");
+//                    paySwitch.setTextColor(Color.BLUE);
+//                    int state =1;
+//                    paymentState(state);
+//                }else{
+//                    paySwitch.setText("NOT PAID");
+//                    paySwitch.setTextColor(Color.RED);
+//                    int state =0;
+//                    paymentState(state);
+//
+//                }
+//            }
+//        });
 
 
 
@@ -291,23 +392,23 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        btnViewMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!orderState.contains("5"))
-            if(!latitude.contains("0.0") && !longitude.contains("0.0")){
-                    Intent intent =new Intent(SearchActivity.this,GoogleMapLoc.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putDouble("latitude",Double.parseDouble(latitude));
-                    bundle.putDouble("longitude",Double.parseDouble(longitude));
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
-                }else{
-                    Toast.makeText(SearchActivity.this,"Coordinates not provided ",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        btnViewMap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!orderState.contains("5"))
+//            if(!latitude.contains("0.0") && !longitude.contains("0.0")){
+//                    Intent intent =new Intent(SearchActivity.this,GoogleMapLoc.class);
+//                    Bundle bundle=new Bundle();
+//                    bundle.putDouble("latitude",Double.parseDouble(latitude));
+//                    bundle.putDouble("longitude",Double.parseDouble(longitude));
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+//
+//                }else{
+//                    Toast.makeText(SearchActivity.this,"Coordinates not provided ",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         tvAssign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -416,6 +517,358 @@ public class SearchActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text = adapterView.getItemAtPosition(i).toString();
+
+
+        if (text.equals("Made Payment")){
+            ExampleBottomDialogSheetDialog bottomSheet = new ExampleBottomDialogSheetDialog();
+            bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+            Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
+
+            int state = 1;
+            paymentState(state);
+
+        }else if (text.equals("Not Paid")){
+            int state = 0;
+            paymentState(state);
+        }
+
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        int state = 0;
+        paymentState(state);
+
+    }
+
+    private void setupFirebaseAuth(){
+        Log.d(TAG, "setupFirebaseAuth: started.");
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Toast.makeText(SearchActivity.this, "Authenticated with: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                            .setTimestampsInSnapshotsEnabled(true)
+                            .build();
+                    db.setFirestoreSettings(settings);
+
+                    DocumentReference userRef = db.collection(getString(R.string.collection_users))
+                            .document(user.getUid());
+
+                    userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                Log.d(TAG, "onComplete: successfully set the user client.");
+                                User user = task.getResult().toObject(User.class);
+                                ((UserClient)(getApplicationContext())).setUser(user);
+                            }
+                        }
+                    });
+
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//                    finish();
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+    }
+    //Experiments
+
+//    public void registerNewEmail(final String email, String password){
+//
+//        // showDialog();
+//
+//        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+//
+//                        if (task.isSuccessful()){
+//                            Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+//
+//                            //insert some default data
+//                            User user = new User();
+//                            user.setEmail(email);
+//                            user.setUsername(email.substring(0, email.indexOf("@")));
+//                            user.setUser_id(FirebaseAuth.getInstance().getUid());
+//
+//                            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+//                                    .setTimestampsInSnapshotsEnabled(true)
+//                                    .build();
+//                            mDb.setFirestoreSettings(settings);
+//
+//                            DocumentReference newUserRef = mDb
+//                                    .collection("Users")
+//                                    .document(FirebaseAuth.getInstance().getUid());
+//
+//                            newUserRef.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//
+//
+//                                    if(task.isSuccessful()){
+//                                        // redirectLoginScreen();
+//                                    }else{
+//                                        View parentLayout = findViewById(android.R.id.content);
+//                                        Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            });
+//
+//                        }
+//                        else {
+//                            View parentLayout = findViewById(android.R.id.content);
+//                            Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
+//                            // hideDialog();
+//                        }
+//
+//                        // ...
+//                    }
+//                });
+//    }
+
+
+    private void startLocationService(){
+        if(!isLocationServiceRunning()){
+            Intent serviceIntent = new Intent(this, LocationService.class);
+//        this.startService(serviceIntent);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+
+                SearchActivity.this.startForegroundService(serviceIntent);
+            }else{
+                startService(serviceIntent);
+            }
+        }
+    }
+
+    private boolean isLocationServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+            if("com.codingwithmitch.googledirectionstest.services.LocationService".equals(service.service.getClassName())) {
+                Log.d(TAG, "isLocationServiceRunning: location service is already running.");
+                return true;
+            }
+        }
+        Log.d(TAG, "isLocationServiceRunning: location service is not running.");
+        return false;
+    }
+
+    private void getUserDetails(){
+//        if(mUserLocation == null){
+//            mUserLocation = new UserLocation();
+//            DocumentReference userRef = mDb.collection("Users")
+//                    .document(FirebaseAuth.getInstance().getUid());
+//
+//            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    if(task.isSuccessful()){
+//                        Log.d(TAG, "onComplete: successfully set the user client.");
+//                        User user = task.getResult().toObject(User.class);
+//                        mUserLocation.setUser(user);
+//                        ((UserClient)(getApplicationContext())).setUser(user);
+//                        getLastKnownLocation();
+//                    }
+//                }
+//            });
+//        }
+//        else{
+//            getLastKnownLocation();
+//        }
+    }
+
+    private void getLastKnownLocation() {
+        Log.d(TAG, "getLastKnownLocation: called.");
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<android.location.Location>() {
+            @Override
+            public void onComplete(@NonNull Task<android.location.Location> task) {
+                if (task.isSuccessful()) {
+                    Location location = task.getResult();
+                    GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    mUserLocation.setGeo_point(geoPoint);
+                    mUserLocation.setTimestamp(null);
+                    saveUserLocation();
+                    startLocationService();
+                }
+            }
+        });
+
+    }
+
+    private void saveUserLocation(){
+
+        if(mUserLocation != null){
+            DocumentReference locationRef = mDb
+                    .collection(getString(R.string.collection_user_locations))
+                    .document(FirebaseAuth.getInstance().getUid());
+
+            locationRef.set(mUserLocation).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Log.d(TAG, "saveUserLocation: \ninserted user location into database." +
+                                "\n latitude: " + mUserLocation.getGeo_point().getLatitude() +
+                                "\n longitude: " + mUserLocation.getGeo_point().getLongitude());
+                    }
+                }
+            });
+        }
+    }
+
+    private boolean checkMapServices(){
+        if(isServicesOK()){
+            if(isMapsEnabled()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("This application requires GPS to work properly, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivityForResult(enableGpsIntent, PERMISSIONS_REQUEST_ENABLE_GPS);
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public boolean isMapsEnabled(){
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
+            return false;
+        }
+        return true;
+    }
+
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+            //getChatrooms();
+            getUserDetails();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    public boolean isServicesOK(){
+        Log.d(TAG, "isServicesOK: checking google services version");
+
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(SearchActivity.this);
+
+        if(available == ConnectionResult.SUCCESS){
+            //everything is fine and the user can make map requests
+            Log.d(TAG, "isServicesOK: Google Play Services is working");
+            return true;
+        }
+        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            //an error occured but we can resolve it
+            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(SearchActivity.this, available, ERROR_DIALOG_REQUEST);
+            dialog.show();
+        }else{
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: called.");
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ENABLE_GPS: {
+                if(mLocationPermissionGranted){
+                    // getChatrooms();
+                    getUserDetails();
+                }
+                else{
+                    getLocationPermission();
+                }
+            }
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(checkMapServices()){
+            if(mLocationPermissionGranted){
+                // getChatrooms();
+                getUserDetails();
+            }
+            else{
+                getLocationPermission();
+            }
+        }
+    }
+
+
+
+
+
+
+
 
     private void loadInventorySummary() {
 
@@ -630,6 +1083,24 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    void paymentState(int state){
+
+        App.supportService.updatePaymentStatus("payment_update",state,orderId).enqueue(new Callback<PaymentResult>() {
+            @Override
+            public void onResponse(Call<PaymentResult> call, Response<PaymentResult> response) {
+
+                Log.d("pay",response.body().getSuccess_msg());
+                Toast.makeText(SearchActivity.this, response.body().getSuccess_msg(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<PaymentResult> call, Throwable t) {
+                Toast.makeText(SearchActivity.this, "Submission failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     void addWeight(final String weight){
         pDialog.setMessage("Adding Weight...");
         pDialog.setIndeterminate(false);
@@ -780,9 +1251,9 @@ public class SearchActivity extends AppCompatActivity {
                                         break;
 
                                 }
-                                if(Integer.valueOf(order.payment_status)==1){
-                                    tvPaymentStatus.setText("PAID");
-                                }
+//                                if(Integer.valueOf(order.payment_status)==1){
+//                                    tvPaymentStatus.setText("PAID");
+//                                }
 
                                 if (dry_clean==1||w_press==1||press==1||fold==1){
 
@@ -904,6 +1375,13 @@ public class SearchActivity extends AppCompatActivity {
         }
         return result;
     }
+
+    @Override
+    public void onButtonClicked(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+
+    }
+
 
     class UpdateTask extends AsyncTask <Void,Void,String>{
 

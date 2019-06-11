@@ -10,8 +10,30 @@
     <string name="assigned_pers">Assigned Personnel</string>
     <string name="wash_fold"><![CDATA[WASH & FOLD :]]></string>
 
+    <string name="google_maps_api_key">AIzaSyCZLtbJR3kEc_bK4WOo7Ak-Vrw5KnE-Jac</string>
+
+    <!-- Firestore Strings -->
+    <string name="collection_users">Users</string>
+    <string name="collection_chatrooms">Chatrooms</string>
+    <string name="collection_chat_messages">Chat Messages</string>
+    <string name="collection_chatroom_user_list">User List</string>
+    <string name="collection_user_locations">User Locations</string>
+
     <string-array name="amount_type">
         <item>GHC</item>
         <item>PERC %</item>
+    </string-array>
+
+
+
+    <string-array name="payment_state">
+        <item>Not Paid</item>
+        <item>Made Payment</item>
+    </string-array>
+
+    <string-array name="payment_mode">
+        <item>Cash Collection</item>
+        <item>Mobile Money</item>
+        <item>Online Payment</item>
     </string-array>
 </resources>
